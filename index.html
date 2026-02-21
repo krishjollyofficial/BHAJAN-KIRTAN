@@ -31,6 +31,7 @@
         #scroll-top-btn { position: absolute; left: 12px; top: 12px; background: var(--accent-color); color: #000; padding: 5px 10px; border-radius: 8px; font-size: 0.8rem; font-weight: bold; cursor: pointer; border: none; z-index: 1002; }
         #shabad-counter { position: absolute; top: 12px; right: 12px; background: var(--accent-color); color: #000; padding: 4px 12px; border-radius: 20px; font-size: 0.75rem; font-weight: bold; }
 
+        /* FLOATING AUDIO TILE */
         #global-audio-wrap {
             display: none; width: 92%; max-width: 600px; margin: 10px auto 20px auto; border-radius: 15px;
             background: var(--card-bg); box-shadow: 0 8px 20px rgba(0,0,0,0.1); padding: 8px; border: 1px solid rgba(0,0,0,0.05);
@@ -42,9 +43,9 @@
         .controls-panel { display: flex; justify-content: center; gap: 10px; margin-top: 15px; flex-wrap: wrap; }
         #back-btn { background: var(--accent-color); color: #000; font-weight: bold; border: none; padding: 10px 25px; border-radius: 8px; cursor: pointer; display: none; margin: 12px auto 0 auto; }
         
-        /* SEARCH BOX STYLING */
+        /* SEARCH BOX AUTO-HIDE */
         .search-container { padding: 20px 15px; display: flex; justify-content: center; max-width: 500px; margin: 0 auto; position: sticky; top: 130px; z-index: 1000; transition: transform 0.4s ease, opacity 0.3s ease; }
-        .search-hidden { transform: translateY(-200px); opacity: 0; pointer-events: none; }
+        .search-hidden { transform: translateY(-180px); opacity: 0; pointer-events: none; }
         
         .input-wrapper { position: relative; width: 100%; display: flex; align-items: center; }
         #search-bar { width: 100%; padding: 14px 45px 14px 22px; border: 1.5px solid #ddd; border-radius: 35px; background: var(--card-bg); color: var(--text-color); font-size: 16px; outline: none; box-sizing: border-box; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
@@ -62,7 +63,6 @@
         .index-links a { display: block; text-decoration: none; padding: 20px; margin: 18px 0; background: var(--card-bg); border-radius: 15px; font-weight: bold; color: #4a148c; box-shadow: 0 6px 12px rgba(0,0,0,0.08); cursor: pointer; transition: 0.3s ease; }
         body.dark-mode .index-links a { color: #ffca28; background: #1e1e1e; border: 1px solid rgba(255, 202, 40, 0.1); box-shadow: var(--neon-shadow); }
 
-        /* MATCHED BACKGROUND DESIGN */
         .shabad-view-container { background: var(--bg-color); min-height: 100vh; padding-bottom: 120px; }
         .shabad-title { font-size: 1.5rem; font-weight: 700; margin: 0; padding: 30px 20px 5px 20px; text-align: center; background: var(--bg-color); color: var(--title-color); }
         body.dark-mode .shabad-title { background: var(--title-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
@@ -97,7 +97,7 @@
         <div class="search-container" id="search-container">
             <div class="input-wrapper">
                 <input type="text" id="search-bar" placeholder="Search..." autocomplete="off">
-                <button id="clear-search" onclick="clearSearch()">✕</button>
+                <button id="clear-search">✕</button>
             </div>
         </div>
         <div class="index-links" id="index-links"></div>
@@ -105,16 +105,17 @@
 
     <div id="shabad-view" class="shabad-view-container" style="display: none;">
         <div id="shabad-title-box"></div>
+        
         <div id="global-audio-wrap">
             <div class="audio-container">
                 <audio id="main-player" controls controlsList="nodownload"></audio>
             </div>
         </div>
+
         <div id="active-container" class="shabad-content-area"></div>
     </div>
 
     <script>
-        // Data Array
         const shabads = 	[
         {"id":1768132842014,"audio":"audio/shabad1.mp3",
 	"pb":{"t":"ਅਬ ਮੁਝਸੇ ਰਹਾ ਨਾ ਜਾਏ","c":"ਅਬ ਮੁਝਸੇ ਰਹਾ ਨਾ ਜਾਏ , ਜਬ ਸੇ ਤੁਮਰੇ ਦਰਸ਼ਨ ਪਾਏ ॥ \nਜੰਗਲ ਜੰਗਲ ਢੂੰਢੇ ਜੋਗੀ ਥੱਕ ਹਾਰੇ , ਝਲਕ ਦਿਖਾਦੋ ਮੋਹੇ ਪ੍ਰੀਤਮ ਪਿਆਰੇ ॥\nਰੈਣ ਨਾ ਵਿਹਾਵੇ ਚੈਨ ਨਾ ਆਵੇ , ਤੁਧ ਬਿਨ ਮੇਰੇ ਪ੍ਰੀਤਮ ਹਰਿ ਰਾਇ ॥ \nਮੋਹੇ ਬਤਾ ਦੋ ਪਿਆਸ ਮਿਟਾ ਦੋ , ਕਿੰਨ ਬਿਧ ਮਿਲੋਗੇ ਰਾਮ ਪਿਆਰੇ ॥\nਨੈਨਾ ਪਿਆਸੇ ਬਿਰਹਾ ਦੇ ਮਾਰੇ , ਚਿੰਤਾ ਚਿੱਤ ਨਿੱਤ ਸਤਾਵੇ ॥ \nਦਰਸ਼ਨ ਦਾਸ ਦਾਸਨ ਕੋ ਦਾਸਾ , ਸੇਵਾ ਸਿਦਕ ਨਾਮ ਸਹਾਰੇ ॥\n( ਯਕੀਨ )"},"hi":{"t":"अब मुझ से रहा ना जाये","c":"अब मुझसे रहा ना जाये , जब से तुमरे दर्शन पाये ।। \nजंगल जंगल ढूँढे जोगी थक्क हारे ,झलक दिखादो मोहे प्रीतम पिआरे ।।\nरैण ना विहावे चैन ना आवे , तुध बिन मेरे प्रीतम हरि राय ।।\nमोहे बता दो पिआस मिटा दो , किंन बिध मिलोगे राम पिआरे ।।\nनैना पिआसे बिरहा दे मारे , चिंता चित्त नित्त सतावे ।।\nदर्शन दास दासन को दासा , सेवा सिदक नाम सहारे ।।\n( यकीन )\n"},"en":{"t":"Ab Mujhse Rah Na Jaye","c":"Ab Mujhse Rah Na Jaye"}},
@@ -176,7 +177,7 @@
 	{"id":1768311405381,"audio":"audio/shabad20.mp3",
 	"pb":{"t":"ਚਰਨ ਪ੍ਰੀਤਿ ਮੋਹੇ ਦੀਜੈ","c":"( ਅਰਜ਼ ) \nਚਰਨ ਪ੍ਰੀਤਿ ਮੋਹੇ ਦੀਜੈ , ਪ੍ਰਭ ਜੀਉ ਕਿਰਪਾ ਕੀਜੈ ॥ \nਚਰਨ ਧੋਏ ਚਰਨਾਮਤ ਪੀਵਾਂ , ਮਨੁ ਨਿਰਮਲ ਹੋ ਚਰਨੀ ਥੀਵਾਂ , \nਐਸੀ ਸੁਮਤਿ ਮੋਹੇ ਦੀਜੈ ॥ \nਚਰਨ ਸਰਨ ਮਿਲੇ ਗੁਰੂ ਕੀ ਸੇਵਾ , ਸਹਜ ਧੁਨਿ ਉਪਜੇ ਗਾਵੈ ਗੁਣ ਜੀਹਵਾ , \nਨਾਮ ਬਿਨਾ ਰਸ ਫੀਕੈ ॥ \nਚਰਨ ਕਮਲ ਮਿਲੇ ਸੁਖ ਅਨੰਦਾ , ਦਾਸ ਪੈ ਕਿਰਪਾ ਕੀਜੈ ਗੋਬਿੰਦਾ , \nਦਰਸਨੁ ਨਾਮੁ ਰਸੁ ਦੀਜੈ ॥ \n( ਯਕੀਨ )"},"hi":{"t":"चरन प्रीत मोहे दीजै","c":"( अर्ज )\nचरन प्रीत मोहे दीजै , प्रभ जीओ किरपा कीजै ।।\nचरन धोये चरनांमत पीवां , मन निरमल हो चरनी थीवां ,\nऐसी सुमत्त मोहे दीजै ।।\nचरन शरन मिले गुरू की सेवा , सहज धुन उपजे गावे गुण जीहवा , \nनाम बिना रस फीकै ।।\nचरन कमल मिले सुख अनंदा , दास पे किरपा कीजै गोबिंदा , \nदर्शन नाम रस दीजै ।।\n( यकीन )"},"en":{"t":"Charan Preet Mohe Deeje","c":"Charan Preet Mohe Deeje"}},
 	
-	{"id":1768311624077,"audio":"audio/shabad21.mp3",
+	{"id":1768311624077,
 	"pb":{"t":"ਮੇਰੇ ਪਤਿਤ ਪਾਵਨ ਪੀਆ ਮਨਿ ਭਾਏ","c":"ਮੇਰੇ ਪਤਿਤ ਪਾਵਨ ਪੀਆ ਮਨਿ ਭਾਏ , ਹਰਿ ਰਾਇ ॥ \nਹਰਿ ਰਾਇ ਹਰਿ ਰਾਇ ਹਰਿ ਰਾਇ ਤੁਝ ਮਾਹਿ ਸਮਾਏ ॥ \nਪੀੜ ਜ਼ਹਿਰ ਪਿਆਲਾ ਅੰਮ੍ਰਿਤ ਬਣਿ ਜਾਈ , ਜੇ ਪੀਆ ਸੰਗਿ ਪ੍ਰੀਤਿ ਮਨਿ ਭਾਈ ॥ \nਤੂੰ ਠਾਕੁਰੁ ਬੇਅੰਤੁ ਬਿਧਾਤੇ ਤੁਝ ਬਿਨੁ ਮਰਿ ਜਾਈ ॥ \nਦੇਹੁ ਸੁਮਤਿ ਸਚੁ ਸਿਦਕੁ ਸਾਧ ਸੰਗਤਿ , ਸਰਬੱਤ ਸ਼ਹਾਦਤ ਹੋਵੋ ਤੁਮ ਸਹਾਈ ॥ \nਘਟਿ ਘਟਿ ਵਾਸੀ ਪ੍ਰਭ ਅਬਿਨਾਸੀ , \nਯਾਮੀ ਯਾਮੀ ਅੰਤਰਯਾਮੀ ਦਰਸਨੁ ਦਾਸ ਤੇਰੀ ਸਰਣਾਈ ॥ \nਹਰਿ ਰਾਇ ॥ \n( ਯਕੀਨ )"},"hi":{"t":"मेरे पतित पावन पीआ मन भाये","c":"मेरे पतित पावन पीआ मन भाये , हरि राय , \nहरि राय हरि राय हरि राय तुझ माहि समाये ।।\nपीड़ ज़हर पिआला अमृत बण जाई , जे पीआ संग प्रीत मन भाई ।।\nतूं ठाकुर बेअंत बिधाते तुझ बिन मर जाई ।।\nदेओ सुमत्त सच सिदक साध संगत , सरबत्त शहादत होवो तुम सहाई ।।\nघट घट वासी प्रभ अबिनासी , \nयामी यामी अंतरयामी दर्शन दास तेरी शरणाई , \nहरि राय ।।\n( यकीन )"},"en":{"t":"Mere Patit Paavan Piya","c":"Mere Patit Paavan Piya"}},
 	
 	{"id":1768311801167,"audio":"audio/shabad22.mp3",
@@ -218,49 +219,49 @@
 	{"id":1768318588680,"audio":"audio/shabad34.mp3",
 	"pb":{"t":"ਧੰਨ ਸ਼ਿਵ ਤ੍ਰਿਲੋਕੀ ਨਾਥਾ","c":"ਧੰਨ ਸ਼ਿਵ ਤ੍ਰਿਲੋਕੀ ਨਾਥਾ , ਸ਼ਕਤੀ ਭੇਦ ਦੇਹੁ ਸਵਾਰੀ ॥ \nਬਾਂਧੀ ਨਾ ਛੂਟੇ ਦਾਸ ਕੀ ਜੋ ਬਾਂਧੇ ਤੁਮਾਰੀ ॥ \nਰੱਬ ਰਹੀਮ ਰਾਮ ਨਾਨਕ , ਗੋਬਿੰਦ ਸੰਗਿ ਸੁਹਾਗਣਾ , \nਖਸਮਾਣੇ ਸ਼ਰਣ ਤੁਮਾਰੀ ॥ \nਤੂੰ ਸਹਾਈ ਮੇਰੇ ਸਤਿਗੁਰ ਜੀਉ , ਹਮ ਭਏ ਦਾਸ ਤੁਮਾਰੇ ॥ \nਤੁਧੁ ਆਗੈ ਅਰਜੋਈ ਹਮਾਰੀ , ਰਾਖੋ ਜਗਤੁ ਜਲੰਦਾ ॥ \nਸੁਣਾਂ ਪੜ੍ਹਾਂ ਪ੍ਰਭ ਤੇਰੀ ਬਾਣੀ , ਤੇਰੀ ਮਾਇਆ ਗੁਣੀ ਗੁਣਿਅੰਤ ਨਾ ਜਾਣੀ ॥ \nਤੁਮ ਦੇਹੁ ਦਰਸੁ ਮੇਰੇ ਰਾਮਾ , ਦਰਸਨੁ ਗਤਿ ਤੁਹਾਰੀ ॥ \n( ਯਕੀਨ )"},"hi":{"t":"धन शिव त्रिलोकी नाथा","c":"धन शिव त्रिलोकी नाथा , शक्ती भेद देओ सवारी ।। \nबांधी ना छूटे दास की जो बांधे तुमारी ।।\nर रहीम राम नानक , गोबिंद संग सुहागणा , \nखसमाने शरण तुमारी ।।\nतँ सहाई मेरे सतिगुर जीओ , हम भयो दास तुमारे ।। \nतुध आगे अरजोई हमारी , राखो जगत जलंदा ।।\nसुणां पढ़ां प्रभ तेरी बाणी , तेरी माया गुणी गुणिअंत ना जाणी ।।\nतुम देओ दरस मेरे रामा , दर्शन गत तुहारी ।।\n( यकीन )"},"en":{"t":"Dhan Shiv Triloki Natha","c":"Dhan Shiv Triloki Natha"}},
 	
-	{"id":1768331375990,"audio":"audio/shabad35.mp3",
+	{"id":1768331375990,
 	"pb":{"t":"ਅੰਮ੍ਰਿਤੁ ਪੀਓ ਜੁਗੁ ਜੁਗੁ ਜੀਓ ( ਪਦਮ ਪੰਚਮਣੀ )","c":"( ਪਦਮ ਪੰਚਮਣੀ )\nਅੰਮ੍ਰਿਤੁ ਪੀਓ ਜੁਗੁ ਜੁਗੁ ਜੀਓ , ਯਸ਼ ਯਸ਼ਵੰਤੀ ਹਰਿ ਚਰਣੀ ਥੀਓ ॥ \nਥਾਨ ਥਨੰਤਰਿ ਵਸੈ ਬੈਕੁੰਠ ਵਾਸੀ , ਚਵਰੁ ਛਤ੍ਰੁ ਨਾਥ ਵਿਸ਼ੇਸ਼ ਦੀਓ ॥ \nਲੱਖਾਂ ਹੂਰਾਂ ਲੱਖਾਂ ਇੰਦਰ , ਸੇਵ ਕਰੇਂਦੇ ਲੱਖ ਸੂਰਜ ਚੰਦਰ ॥ \nਲੱਖਾਂ ਦੇਵੀ ਕੋਟੀ ਦੇਵਤੇ , ਲੱਖ ਕੋਟੀ ਸੇਵਨ ਪੀਰ ਪੈਗੰਬਰ ॥ \nਲੱਖਾਂ ਅਹਿਲਿਆ ਲੱਖਾਂ ਗੌਤਮ , ਹਥ ਜੋੜਿ ਖੜ੍ਹੇ ਲੱਖਾਂ ਗੋਰਖ ਮਛੰਦਰ ॥ \nਬ੍ਰਹਮਾ ਮਹੇਸ਼ ਵਿਸ਼ਨੂੰ ਜਪਤੇ , ਭੇਖ ਵੇਸ ਤਨ ਧਾਰਿ ਕਲੰਦਰ ॥ \nਕਹੁ ਦਰਸਨ ਚਰਨਾਮਤ ਲੀਓ , ਤਨੁ ਮਨੁ ਧਨੁ ਸਭੁ ਪ੍ਰਭ ਕੌ ਦੀਓ ॥ \n( ਯਕੀਨ )"},"hi":{"t":"अमृत पीओ जुग जुग जीओ ( पदम पँचमणी )","c":"( पदम पँचमणी )\nअमृत पीओ जुग जुग जीओ , यश यशवंती हरि चरणी थीओ ।। \nथान थनंतर वसै बैकुण्ठ वासी , चवर छतर नाथ विशश दीओ ।।\nलखां हूरां लखां इंदर , सेव करेंदे लख सूरज चंदर ।। \nलखां देवी कोटी देवते, लख कोटी सेवन पीर पैगंबर ।। \nलखां अहिलया लखां गौतम , हथ जोड़ खड़े लखां गोरख मछंदर ।। \nब्रह्मा महेश विशनूं जपते , भेख वेस तन धार कलंदर ।।\nकहु दर्शन चरनामत लीओ, तन मन धन सभ प्रभ को दीओ ।।\n( यकीन )"},"en":{"t":"Amrit Peeyo Jug Jug Jeeyo ( Padam Panchmani )","c":"Amrit Peeyo Jug Jug Jeeyo ( Padam Panchmani )"}},
 	
-	{"id":1768331957012,"audio":"audio/shabad36.mp3",
+	{"id":1768331957012,
 	"pb":{"t":"ਅੰਮ੍ਰਿਤਧਾਰਾ ਬਰਸੈ ਮਨਵਾ","c":"ਅੰਮ੍ਰਿਤਧਾਰਾ ਬਰਸੈ ਮਨਵਾ , ਕਰਿ ਲੇ ਤੂੰ ਇਸਨਾਨੁ ॥ \nਜਨਮ ਜਨਮ ਕੇ ਧੁਲ ਜਾਏਂਗੇ ਤੇਰੇ ਪਾਪ ਤਮਾਮ , ਭਜ ਲੈ ਰਾਮ , ਭਜ ਲੈ ਰਾਮ ॥ \nਰੋਮ ਰੋਮ ਮੇਂ ਰਮ ਜਾਏ ਜੋ , ਉਹ ਹੈ ਰਾਮ ਕਾ ਨਾਮੁ ॥ \nਸ਼ਰਧਾ ਸੇ ਤੂੰ ਧਿਆ ਲੈ ਪਿਆਰੇ , ਪੂਰਨ ਹੋਵਨਿ ਕਾਮ ॥ \nਰਾਮ ਨਾਮ ਸੇ ਪੱਥਰ ਤਰ ਗਏ , ਰਾਮ ਹੈ ਤਾਰਨਹਾਰ ॥ \nਰਾਮ ਨਾਮ ਕੀ ਮਹਿਮਾ ਨਿਆਰੀ , ਪੂਜੇ ਕੁਲ ਜਹਾਨ ॥ \nਰਾਮ ਹੈ ਵਿਸ਼ਨੂੰ ਰਾਮ ਮਹੇਸ਼ , ਰਾਮ ਹੈ ਬ੍ਰਹਮ ਗਿਆਨੁ ॥ \nਜੋ ਜਨੁ ਸਿਮਰੇ ਸੱਚੇ ਹਿਰਦੇ , ਦਰਸਨੁ ਦੀਓ ਰਾਮ ॥ \n( ਯਕੀਨ )"},"hi":{"t":"अमृतधारा बरसै मनवा","c":"अमृतधारा बरसै मनवा , करले तू इश्नान , \nजनम जनम के धुल जायेंगे तेरे पाप तमाम , भजले राम , भजले राम ।।\nरोम रोम में रम जाये जो , वो है राम का नाम , \nशरधा से तूं धिआले पिआरे , पूरन होंगे काम ।।\nराम नाम से पत्थर तर गये , राम है तारनहार , \nराम नाम की महिमा निआरी , पूजे कुल जहान ।।\nराम है विशनव राम महेश , राम है ब्रह्म गिआन , \nजो जन सिमरे सच्चे हिरदे , दर्शन दीओ राम ।।\n( यकीन )"},"en":{"t":"Amritdhara Barse Manva","c":"Amritdhara Barse Manva"}},
 	
-	{"id":1768332514619,"audio":"audio/shabad37.mp3",
+	{"id":1768332514619,
 	"pb":{"t":"ਅੱਖਾਂ ਦਾ ਤੱਕਣਾ ਕਾਮ ਦੀ ਹੈ ਭਾਵਨਾ","c":"ਅੱਖਾਂ ਦਾ ਤੱਕਣਾ ਕਾਮ ਦੀ ਹੈ ਭਾਵਨਾ , \nਕੰਨਾਂ ਦਾ ਇਹ ਸੁਣਨਾ , ਰੂਪ ਹੈ ਸ਼ੈਤਾਨ ਦਾ ॥ \nਨੱਕ ਦਾ ਇਹ ਸੁੰਘਣਾ ਗੁਣ ਪਸੂ ਮਾਲ ਦਾ , \nਸਵਾਦਾਂ ਦਾ ਇਹ ਚੱਖਣਾ ਰਸ ਹੈ ਜ਼ੁਬਾਨ ਦਾ ॥ \nਸਰੀਰ ਦੀ ਇਹ ਗਰਮੀ ਸਬੂਤ ਹੈ ਹੰਕਾਰ ਦਾ , \nਮਨੁੱਖ ਦੀ ਇਹ ਸੋਚ ਸੱਪ ਤੇ ਬਾਂਦਰੀ ਦੀ ਚਾਲ ਦਾ ॥ \nਸਭੇ ਗੱਲਾਂ ਸਿੱਧੀਆਂ ਤੇ ਸੱਚੀਆਂ ਨੇ ਜਾਪਦੀਆਂ , \nਦਰਸ਼ਨ ਦੀਆਂ ਬੁਝਾਰਤਾਂ ਸਾਹਿਬ ਤੇ ਜਨਾਬ ਦੀਆਂ ॥ \n( ਯਕੀਨ )"},"hi":{"t":"अक्खां दा तकणा काम दी है भावना","c":"अक्खां दा तकणा काम दी है भावना , \nकन्ना दा ए सुनणा , रूप है शैतान दा ।।\nनक्क दा ए सुंघणा गुण पसू माल दा , \nसवादां दा ए चखणा रस है जुबान दा ।।\nसरीर दी ए गरमी सबूत है हंकार दा , \nमनुख दी ए सोच सप्प ते बांदरी दी चाल दा ।।\nसभे गल्लां सिधीआं ते सच्चीआं ने जापदीआं , \nदर्शन दीआं बुझारतां साहिब ते जनाब दीआं ।। \n( यकीन )"},"en":{"t":"Akha Da Takna Kaam Di e Bhavna","c":"Akha Da Takna Kaam Di e Bhavna"}},
 	
-	{"id":1768332697837,"audio":"audio/shabad38.mp3",
+	{"id":1768332697837,
 	"pb":{"t":"ਇੱਕੋ ਦਾਤਾ ਇੱਕੋ ਉੱਮਤ","c":"ਇੱਕੋ ਦਾਤਾ ਇੱਕੋ ਉੱਮਤ , ਭਿੰਨ ਭੇਦ ਨਾਹੀ ਕੋਇ ॥ \nਭੇਖ ਉਤਾਰਨ ਵੇਸ ਸਵਾਰਨ , ਪ੍ਰਭ ਸਹਾਈ ਆਪੇ ਹੋਇ ॥ \nਐਥੇ ਓਥੇ ਰਹੇ ਨਿਆਰਾ , ਭਗਤ ਵਛਲੁ ਕਿਰਪਾ ਸੋਇ ॥ \nਸੱਚੀ ਸਾਂਝੀ ਸੋਭਾ ਉਸਦੀ , ਦਰਸਨ ਕਾਰਜ ਹਰਿ ਸੰਗਿ ਖਲੋਇ ॥ \n( ਯਕੀਨ )"},"hi":{"t":"इक्को दाता इक्को उम्मत","c":"इक्को दाता इक्को उम्मत , भिन्न भेद नाही कोये ।। \nभेख उतारण वेस सवारण , प्रभ सहाई आपे होये ।। \nऐथे ओथे रहे निआरा , भगत वसल किरपा सोये ।। \nसच्ची सांझी सोभा उसदी , दर्शन कारज हरि संग खलोये ।।\n( यकीन )"},"en":{"t":"Ikko Data Ikko Ummat","c":"Ikko Data Ikko Ummat"}},
 	
-	{"id":1768332954091,"audio":"audio/shabad39.mp3",
+	{"id":1768332954091,
 	"pb":{"t":"ਏਕ ਓਅੰਕਾਰ ਰਾਓਅੰਕਾਰ ਸੈਭੰ ਸਤਿਨਾਮੁ ( ਸ਼ਕਤੀ )","c":"( ਸ਼ਕਤੀ )\nਏਕ ਓਅੰਕਾਰ ਰਾਓਅੰਕਾਰ ਸੈਭੰ ਸਤਿਨਾਮੁ , \nਸਤਿਗੁਰ ਸਮੁੰਦ ਹਰਿ ਨਾਮ ਸਮਾਏ ॥ \nਦਾਨੁ ਦੇਹੁ ਨਾਮੁ ਭਗਤਨ ਕੋ , \nਜਿਸ ਸੰਗਿ ਪੰਚ ਦੁਸ਼ਟ ਭਰਮ ਛੂਟਿ ਜਾਏ ॥ \nਏਕ ਓਅੰਕਾਰ ਰਾਓਅੰਕਾਰ ਸਤਿਨਾਮੁ ਜੋਤਿ ਨਿਰੰਜਨ , \nਪ੍ਰਭ ਅਬਿਨਾਸੀ ਅੰਤਰਯਾਮੀ , ਦਰਸਨੁ ਦਾਸ ਤੇਰੀ ਸ਼ਰਨਾਈ ॥ \n( ਯਕੀਨ )"},"hi":{"t":"एक ओंकार राओंकार सैभं सतिनाम ( शक्ति )","c":"( शक्ति )\nएक ओंकार राओंकार सैभं सतिनाम , \nसतिगुर समुंद हरि नाम समाये ।। \nदान देओ नाम भगतन को , \nजिस संग पँच दुष्ट भरम छूट जाये ।।\nएक ओंकार राओंकार सतिनाम जोत निरंजन , \nप्रभ अबिनासी अंतरयामी , दर्शन दास तेरी शरनाई ।।\n( यकीन )"},"en":{"t":"Ek Onkaar RaOnkaar ( Shakti ) ","c":"Ek Onkaar RaOnkaar ( Shakti ) "}},
 	
-	{"id":1768333370364,"audio":"audio/shabad40.mp3",
+	{"id":1768333370364,
 	"pb":{"t":"ਇਕ ਘੜੀ ਸਾਧ ਸੰਗਿ","c":"ਇਕ ਘੜੀ ਸਾਧ ਸੰਗਿ ਹਰਿ ਪਲੁ ਨਿਭਸੀ ਨਾਲਿ , \nਮਿਲਿਆ ਹਰਿ ਪ੍ਰਭ ਠਾਕੁਰੁ ਜੀਉ ॥ \nਸ਼ਬਦੁ ਜਪਿਆਂ ਅੰਤਰਿ ਉਪਜੈ ਪਰਗਾਸੁ ॥ \nਅਗਮ ਜੋਤਿ ਹਰਿ ਜਨ ਹਰਿ ਚਿਤਿ ਨਿਰੰਜਨ ਵਾਸੁ ॥ \nਹਰੀ ਦਾਸ ਆਪੇ ਤੂੰ ਦਾਸਨ ਕੋ ਦਾਸੁ , ਸੰਤ ਸਚੁ ਨਾਮੁ ਰਸੁ ॥ \nਰਸਨਾ ਜੈ ਜੈ ਕਰਿਓ ਕਾਰ , ਗੁਰੂ ਗੋਬਿੰਦ ਗੁਰੂ ਨਾਰਾਇਣੁ ਜੀਉ ॥ \nਗੁਰੂ ਪਾਰਬ੍ਰਹਮ ਗੁਰੂ ਨਾਨਕ ਰਹਿਓ ਹਰਿ ਥਾਂਈ ॥ \nਦਰਸਨੁ ਗੁਰੂ ਭੇਟਿਓ ਆਪਣਾ , ਛੂਟੀ ਜਮ ਕੀ ਫਾਹੀ ॥ \n( ਯਕੀਨ )"},"hi":{"t":"एक घड़ी साध संग","c":"एक घड़ी साध संग हरि पल निभसी नाल , \nमिलेया हरि प्रभ ठाकुर जीओ ।। \nशब्द जपेआं अंतर उपजै परगास ।। \nअगम जोत हरि जन हरि चित्त निरंजन वास ।। \nहरी दास आपे तू दासन को दास , संत सच्च नाम रस ।। \nरसना जै जै करेओ कार , गुरू गोबिंद गुरू नारायण जीओ ।।\nगुरू पारब्रह्म गुरू नानक रहेओ हर थांई ।।\nदर्शन गुरू भेटेओ आपणा , छूटी जम की फाही ।। \n( यकीन )"},"en":{"t":"Ek Gadi Saadh Sang","c":"Ek Gadi Saadh Sang"}},
 	
-	{"id":1768381206803,"audio":"audio/shabad41.mp3",
+	{"id":1768381206803,
 	"pb":{"t":"ਆ ਅੱਲ੍ਹਾ ਆ ਰਾਮ ਆਤਾ ਹੈ ( ਦੋਹਰਾ )","c":"( ਦੋਹਰਾ )\nਆ ਅੱਲ੍ਹਾ , ਆ ਰਾਮ ਆਤਾ ਹੈ , ਅੱਲ੍ਹਾ ਤੋ ਆ ਜਾਤਾ ਹੈ , \nਅਗਮ ਆ ਈਹਾਂ ਆ ਊਹਾਂ ਇਕ ਓਅੰਕਾਰ ॥ \n( ਯਕੀਨ )"},"hi":{"t":"आ अल्ला आ राम आता है ( दोहा )","c":"( दोहा )\nआ अल्ला , आ राम आता है , अल्ला तो आ जाता है , \nअगंम आ ईहां आ उहां इक ओंकार ।।\n( यकीन )"},"en":{"t":"Aa Allah Aa Ram Aata Hain ( Doha )","c":"Aa Allah Aa Ram Aata Hain ( Doha )"}},
 	
-	{"id":1768381443667,"audio":"audio/shabad42.mp3",
+	{"id":1768381443667,
 	"pb":{"t":"ਆਣਿ ਪੜੇ ਜੋ ਤੇਰੀ ਸਰਣੀ","c":"ਆਣਿ ਪੜੇ ਜੋ ਤੇਰੀ ਸਰਣੀ , ਸਫਲੁ ਤਿਨ੍ਹਾ ਕਾ ਜੀਵਨੁ ਹੋਏ , \nਤੇਰਾ ਕੀਆ ਸਭ ਤੋਂ ਉੱਤਮ , ਹਰਿ ਕਾਰਜ ਤੂੰ ਆਣਿ ਖਲੋਏ ॥ \nਆਪੇ ਕਰਤਾ ਕਰੇ ਸੰਭਾਲ , ਆਪੇ ਲਾਇਓ ਪ੍ਰੇਮ ਪਿਆਰੁ ,\nਆਪੇ ਜੋੜੇ ਆਪਿ ਸੰਜੋਏ ॥ \nਕਿਤੁ ਥਾਂਉ ਆਏ ਕਿਤੁ ਸੰਗਿ ਜਾਏ , ਦੇਸੁ ਪਰਾਇਆ ਕਿਤੁ ਨੇਹੁ ਲਾਏ , \nਤੂੰ ਜਾਣੇ ਨਾ ਬੂਝੇ ਕੋਏ ॥ \nਉਹ ਵੇਲਾ ਹੈ ਸਦਾ ਸੁਹੇਲਾ , ਕੰਤ ਪਾਈਏ ਜਬ ਦਰਸਨੁ ਤੇਰਾ ,\nਦੀਜੈ ਦਰਸਨੁ ਮੋਹੇ ॥ \n( ਯਕੀਨ )"},"hi":{"t":"आण पड़े जो तेरी शरणी","c":"आण पड़े जो तेरी शरणी , सफल तिनहां का जीवन होये , \nतेरा कीआ सभ तों उत्तम , हर कारज तू आण खलोये ।।\nआपे करता करे संभाल , आपे लायो प्रेम पिआर , \nआपे जोड़े आप संजोये ।।\nकित थांओं आये कित संग जाये , देस पराया कित नेहूं लाये , \nतूं जाणे ना बूझे कोये ।।\nओह वेला है सदा सुहेला , कंत पाइये जब दर्शन तेरा , \nदीजै दर्शन मोहे ।।\n( यकीन )"},"en":{"t":"Aan Pade Jo Teri Sharni","c":"Aan Pade Jo Teri Sharni"}},
 	
-	{"id":1768381739068,"audio":"audio/shabad43.mp3",
+	{"id":1768381739068,
 	"pb":{"t":"ਇੱਕੋ ਮਿੱਟੀ ਦੇ ਬਣੇ ਇਨਸਾਨ ( ਦੋਹਰਾ )","c":"( ਦੋਹਰਾ )\nਇੱਕੋ ਮਿੱਟੀ ਦੇ ਬਣੇ ਇਨਸਾਨ ਸਭ ਕੇ ਦਾਤਾ ਸ਼੍ਰੀ ਭਗਵਾਨ , \nਨਾ ਕੋਈ ਹਿੰਦੂ ਨਾ ਇਸਾਈ ਨਾ ਕੋਈ ਸਿੱਖ ਨਾ ਮੁਸਲਮਾਨ ॥ \n( ਯਕੀਨ )"},"hi":{"t":"इक्को मिट्टी दे बणे इनसान ( दोहा )","c":"( दोहा )\nइक्को मिट्टी दे बणे इनसान सभ के दाता श्री भगवान , \nना कोई हिंदू ना इसाई ना कोई सिख ना मुसलमान ।।\n( यकीन )"},"en":{"t":"Ikko Mitti De Bane Insaan ( Doha )","c":"Ikko Mitti De Bane Insaan ( Doha )"}},
 	
-	{"id":1768382478873,"audio":"audio/shabad44.mp3",
+	{"id":1768382478873,
 	"pb":{"t":"ਉਡਣ ਪੰਖੇਰੂ ਬਿਨੁ ਰਾਹੀ","c":"ਉਡਣ ਪੰਖੇਰੂ ਬਿਨੁ ਰਾਹੀ , ਰਾਹੁ ਦਰਸਾਵੇ ਕੇਹੜਾ , \nਤਰਨ ਸਮੁੰਦਰੀਂ ਡੱਡੂ ਮਛੀਆਂ , ਨਾ ਪੰਥ ਨਾ ਡੇਰਾ ॥ \nਰੱਖਣ ਲੋਕੀ ਕੁੱਤੇ ਬਿੱਲੀ ਜਾਤ ਪਾਤ ਨਾ ਝੇੜਾ , \nਰਿਸ਼ਤੇ ਨਾਤੇ ਲਹੂ ਦੇ ਜਾਣਨ , ਪਾਲੇ ਨਾ ਕੋ ਬੰਦਾ ਤੇਰਾ ॥ \nਤੱਕ ਕੇ ਤੇਰੀ ਮਹਿਮਾ ਦਾਤਾ , ਲੋਚਦਾ ਏ ਮਨ ਮੇਰਾ , \nਦਰਸਨੁ ਦਾਸ ਜਾਣੇ ਏਕੋ , ਸਭ ਥਾਂ ਜਿਸਦਾ ਬਸੇਰਾ ॥ \n( ਯਕੀਨ )"},"hi":{"t":"उडण पंखेरू बिन राही","c":"उडण पंखेरू बिन राही , राह दरसावे केहड़ा , \nतरन समुंदरीं डड्डू मछीआं , ना पंथ ना डेरा ।।\nरखण लोकी कुत्ते बिल्ली जात पात न झेड़ा , \nरिश्ते नाते लहू दे जानण , पाले ना को बंदा तेरा ।।\nतक्क के तेरी महिमा दाता , लोचदा ए मन मेरा , \nदर्शन दास जाने एको , सभ थां जिसदा बसेरा ।।\n( यकीन )"},"en":{"t":"Uddan Pakheru Bin Raahi","c":"Uddan Pakheru Bin Raahi\nTakke Teri Mahima Data Lochda\nLochda e Mann Mera"}},
 	
-	{"id":1768382744087,"audio":"audio/shabad45.mp3",
+	{"id":1768382744087,
 	"pb":{"t":"ਏਕੋ ਓਟ ਤੁਮਾਰੀ ਦਾਤਾ","c":"ਏਕੋ ਓਟ ਤੁਮਾਰੀ ਦਾਤਾ , ਅਵਰੁ ਨਾਹੀ ਕੋ ਦੂਜਾ , \nਅੰਤਰ ਕੀ ਗਤਿ ਤੁਮ ਹੀ ਜਾਣੋ , ਬਿਨਤੀ ਸੁਣੋ ਬਨਵਾਰੀ ॥ \nਮੀਰਾ ਲਾਗੀ ਲਗਨ ਅਤਿ ਭਾਰੀ , ਰੋਮ ਰੋਮ ਮਹਿ ਨਾਮੁ ਸਮਾਰੀ , \nਜ਼ਹਰ ਪਿਆਲਾ ਅੰਮ੍ਰਿਤ ਹੋਆ, ਰਾਖੀ ਪੈਜ ਤੂੰ ਗਿਰਧਾਰੀ ॥ \nਭਗਤ ਸੁਦਾਮਾ ਗਲਿ ਨਾਲਿ ਲਾਏ , ਚਰਨ ਧੋਏ ਸੰਗਿ ਸਿੰਘਾਸਣਿ ਬਿਠਾਏ , ਹੋਏ ਕਿਰਪਾਲ ਪ੍ਰਭ ਜਾਏ ਬਲਿਹਾਰੀ , ਦੀਓ ਕੁਲੀ ਗੁਲੀ ਕਿਰਪਾ ਧਾਰੀ ॥ ਮੋਹੇ ਬਖ਼ਸ਼ੋ ਨਾਮ ਨਿਧਾਨ , ਓ ਮੇਰੇ ਸਾਹਿਬਾ ਪੂਰਨ ਭਗਵਾਨ , \nਦਰਸਨੁ ਨਦਰਿ ਕਰੋ ਪ੍ਰਤਿਪਾਲਾ , ਪੂਰੀ ਕੀਜੋ ਆਸ ਹਮਾਰੀ ॥ \n( ਯਕੀਨ )"},"hi":{"t":"एको ओट तुमारी दाता","c":"एको ओट तुमारी दाता , अवर नाही को दूजा , \nअंतर की गत तुम ही जाणो , बिनती सुणो बनवारी ।।\nमीरा लागी लगन अति भारी , रोम रोम महिं नाम समारी , \nजहर पिआला अमृत होआ , राखी पैज तूं गिरधारी ।।\nभगत सुदामा गल नाल लाये , चरण धोये संग सिंघासन बिठाये , \nहोये किरपाल प्रभ जाये बलिहारी , दीओ कुल्ली गुल्ली किरपा धारी ।।\nमोहे बख्शो नाम निधान , ओ मेरे साहिबा पूरण भगवान , \nदर्शन नदर करो प्रितपाला , पूरी कीजो आस हमारी ।।\n( यकीन )"},"en":{"t":"Eko Oat Tumari Data","c":"Eko Oat Tumari Data"}},
 	
-	{"id":1768383038783,"audio":"audio/shabad46.mp3",
+	{"id":1768383038783,
 	"pb":{"t":"ਏਕੋ ਸੰਗਿ ਸੁਹਾਗਣਿ ਜੋਤੀ ਜੋਤਿ ਸਮਾਏ ( ਤੀਸਰੀ ਲਾਂਵ )","c":"( ਤੀਸਰੀ ਲਾਂਵ )\n\nਤੀਜੀ ਲਾਵੈਂ ਦੁਖ ਸੁਖ ਸਾਂਝਾ ਕਿਰਪਾ ਤੁਮਰੀ ਨਿਭਿਓ ਸਾਥ ॥ \nਏਕੋ ਸੰਗਿ ਸੁਹਾਗਣਿ ਜੋਤੀ ਜੋਤਿ ਸਮਾਏ , \nਠਾਕੁਰਿ ਠਾਠੁ ਰਚਾਇਆ ਵਰੁ ਪਾਇਆ ਹਰਿ ਰਾਇ ॥ \nਮਿਲੇ ਸ਼ਬਦ ਸੰਗਿ ਸਾਧ ਪਿਆਰੇ , ਸੰਤ ਰਾਮ ਜਗ ਮਾਹਿ ਨਿਆਰੇ ॥ \nਗੁਰੁ ਆਪਣੇ ਸੰਗਿ ਜਪਾਵੇ ਹਰਿ ਨਾਮੁ , ਸਿਮਰਿ ਪ੍ਰਭੁ ਭਯੋ ਮਿਹਰਵਾਨੁ ॥ ਸੁਖ ਮਨ ਸੁਖ ਅੰਮ੍ਰਿਤੁ ਦੇਹੁ ਦਇਆਵਾਨ , \nਤਨੁ ਮਨੁ ਗੁਰੂ ਧਨੁ ਪੂਰਬ ਪੁਰਖੁ ਸੁਜਾਨ ॥ \nਹਰਿ ਰਾਖਿ ਲੇਹੁ ਜਨ ਅਪਣੇ ਦਰਸਨੁ ਰਾਮੁ ਏਕੋ ਜਾਣੁ ॥"},"hi":{"t":"एको संग सुहागण जोती जोत समाये ( तीसरी लांव )","c":"( तीसरी लांव )\n\nतीजी लावैं दुख सुख सांझा किरपा तुमरी निभेओ साथ ॥\nएको संग सुहागण जोती जोत समाये , \nठाकुर ठाठ रचाया वर पाया हरि राय ।।\nमिले शब्द संग साध पिआरे , संत राम जग माहि निआरे ।। \nगुर आपणे संग जपावे हरि नाम , सिमर प्रभ भयो मेहरबान ।।\nसुख मन सुख अमृत देओ दयावान , \nतन मन गुरू धन पूरब पुरख सुजान ।।\nहरि राख लेओ जन अपणे दर्शन राम एको जाण ।।"},"en":{"t":"Eko Sang Suhagan Jyoti Jot Samaye ( Teesri Laav )","c":"Eko Sang Suhagan Jyoti Jot Samaye ( Teesri Laav )"}},
 	
-	{"id":1768383436580,"audio":"audio/shabad47.mp3",
+	{"id":1768383436580,
 	"pb":{"t":"ਏਕ ਨੂਰ ਤੇ ਨੂਰੇ ਇਲਾਹੀ","c":"ਏਕ ਨੂਰ ਤੇ ਨੂਰੇ ਇਲਾਹੀ , ਨਰ ਮਾਹਿ ਤੂੰ ਸਮਾਹੀ , \nਏਕ ਨੂਰ ਤੇ ਜੋਤਿ ਅਗੰਮ ਹੈ ਨਰ ਨਾਰਾਇਣ ਭੇਦ ਨਾਹੀ ॥ \nਅੰਤਰ ਨਿਰੰਤਰ ਰਾਮ ਨਾਮ ਭੈ ਭਰਮ ਛੂਟਿ ਜਾਈ , \nਦਰਸਨੁ ਦਾਸ ਦਾਸੁ ਭਯੋ ਮਿਹਰ ਨਦਰਿ ਕਰਿਓ ਠਾਕੁਰ ਗੋਸਾਈਂ ॥ \nਏਕ ਨੂਰ ਤੇ ਅਗੰਮ ਮਾਹੀ , ਦਰਸਨੁ ਸਚੁ ਤੂੰ ਸਭਨੀ ਥਾਂਈ , \nਤੂੰ ਮੇਰਾ ਤੇ ਮੈਂ ਤੇਰਾ ਤੁਝ ਮੇਂ ਮੁਝ ਮੇਂ ਭੇਦ ਨਾਹੀ ॥ \n( ਯਕੀਨ )"},"hi":{"t":"एक नूर ते नूरे इलाही","c":"एक नूर ते नूरे इलाही , नर माहि तूं समाही , \nएक नूर ते जोत अगंम है नर नारायण भेद नाही ।।\nअंतर निरंतर राम नाम भै भरम छूट जाई , \nदर्शन दास दास भयो मेहर नदर करेओ ठाकुर गोसांई ।।\nएक नूर ते अगंम माही , दर्शन सच तूं सभनी थांई , \nतू मेरा ते मैं तेरा तुझ में मुझ में भेद नाही ।।\n( यकीन )"},"en":{"t":"Ek Noor Te Noor e Ilahi","c":"Ek Noor Te Noor e Ilahi"}},
 	
-	{"id":1768383756176,"audio":"audio/shabad48.mp3",
+	{"id":1768383756176,
 	"pb":{"t":"ਕਰਿ ਕਿਰਪਾ ਪ੍ਰਭ ਕਿਰਪਾ ਨਿਧਾਨ","c":"ਕਰਿ ਕਿਰਪਾ ਪ੍ਰਭ ਕਿਰਪਾ ਨਿਧਾਨ , \nਦਇਆ ਮਿਹਰ ਕਰਹੁ ਮੇਰੇ ਸਤਿਗੁਰੂ ਮਿਹਰਵਾਨ ॥ \nਦਰਸੁ ਦੇਖਿ ਦੇਖਿ ਮਨੁ ਹੋਵੈ ਨਿਹਾਲੁ , ਸ਼ਬਦ ਸੰਗਿ ਪ੍ਰਭੁ ਭਯੋ ਕਿਰਪਾਲੁ ॥ ਸਿਮਰਿ ਸਿਮਰਿ ਸਭਹਿ ਵੇਦ ਪੁਰਾਣ , ਸੰਤ ਸਤਿ ਏਕੋ ਜਾਣ ॥ \nਬਿਨੁ ਨਾਮੈ ਜਨਮੁ ਬਿਰਥਾ ਜਾਏ , ਸੁਣਹੁ ਬੇਨਤੀ ਮੇਰੇ ਹਰਿ ਰਾਇ ॥ \nਕਰਿ ਸਾਜਨ ਕਾਰ ਕਮਾਈ , ਜਨ ਦਰਸਨ ਸੰਗਿ ਤੁਮ ਹੋਵੋ ਸਹਾਈ ॥ \n( ਯਕੀਨ )"},"hi":{"t":"कर किरपा प्रभ किरपा निधान","c":"कर किरपा प्रभ किरपा निधान , \nदया मेहर करो मेरे संतिगुरू मेहरबान ।। \nदरस देख देख मन होवे निहाल , शब्द संग प्रभ भयो किरपाल ।।\nसिमर सिमर सभहि वेद पुराण , संत सति एको जाण ।। \nबिन नामै जनम बिरथा जाये , सुनहो बेनती मेरे हरि राय ।। \nकर साजन कार कमाई , जन दर्शन संग तुम होवो सहाई ॥\n( यकीन )"},"en":{"t":"Kar Kirpa Prabh Kirpa Nidhaan","c":"Kar Kirpa Prabh Kirpa Nidhaan"}},
 	
-	{"id":1768384259451,"audio":"audio/shabad49.mp3",
+	{"id":1768384259451,
 	"pb":{"t":"ਕਿਰਪਾ ਕਰਹੁ ਦੀਨ ਦਇਆਲ","c":"ਕਿਰਪਾ ਕਰਹੁ ਦੀਨ ਦਇਆਲ , ਨਾਨਕ ਗੋਬਿੰਦ ਸਤਿ ਕਰਤਾਰ ਜੀਉ ॥ \nਮਨ ਚਿਤਿ ਸਿਮਰਾਂ ਨਾਮੁ ਤੁਮਾਰਾ , ਹਰਿ ਸਾਜਨ ਸੁਖ ਸੁਹੇਲੜੇ ਜੀਉ ॥ \nਦੇਖਾਂ ਦਰਸੁ ਹੋਵਾਂ ਨਿਹਾਲੁ , ਹਿਰਦੇ ਵਸੇ ਪ੍ਰਭ ਕਿਰਪਾਲੁ ॥ \nਸਤਿਗੁਰੂ ਸੰਗਿ ਸੁਹਾਗਣਾ , ਕੁਸੰਗਤੀ ਪੀੜਾ ਮਰਨੁ ਜੀਉ ॥ \nਮਨਮੋਹਨ ਮੁਕੰਦ ਮੁਰਾਰੀ , ਮਨਮੁਖ ਮੁਕਤਿ ਕਰੋ ॥ \nਓਮ ਨਮੈ ਗੁਰੂ ਅਸ਼ਟ , ਭਗਵਤ ਹੋਮਿਓ ਅਸ਼ਟ ॥ \nਸ਼ਾਂਤਿ ਸੀਤਲ ਸਤਿ ਨਾਰੀ , ਦਰਸਨ ਪੁਰਖਨ ਪਾਰਿ ਕਰੋ ॥ \n( ਯਕੀਨ )"},"hi":{"t":"किरपा करो दीन दयाल","c":"किरपा करो दीन दयाल , नानक गोबिंद सति करतार जीओ ।। \nमन चित्त सिमरां नाम तुमारा , हरि साजन सुख सुहेलड़े जीओ ।।\nदेखां दरस होवां निहाल , हिरदे वसे प्रभ किरपाल ।। \nसतिगुरू संग सुहागणा , कुसंगती पीड़ा मरन जीओ ।। \nमनमोहन मुकंद मुरारी , मनमुख मुक्त करो ।। \nओम नमै गुरू अष्ट , भगवत होमेओ अष्ट ।। \nशांत सीतल सति नारी , दर्शन पुरखन पार करो ।।\n( यकीन )"},"en":{"t":"Kirpa Karo Deen Dayaal","c":"Kirpa Karo Deen Dayaal"}},
 	
 	{"id":1768384508652,"audio":"audio/shabad50.mp3",
@@ -431,7 +432,7 @@
         let currentId = null;
         let fontSize = 1.3;
 
-        // SCROLL HIDE SEARCH LOGIC
+        // SCROLL HIDE SEARCH
         let lastScrollTop = 0;
         window.addEventListener("scroll", function() {
             let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
@@ -446,12 +447,12 @@
         const searchInput = document.getElementById('search-bar');
         const clearBtn = document.getElementById('clear-search');
 
-        function clearSearch() {
+        clearBtn.onclick = function() {
             searchInput.value = '';
             clearBtn.style.display = 'none';
             renderIndex();
             searchInput.focus();
-        }
+        };
 
         searchInput.oninput = function() {
             clearBtn.style.display = this.value ? 'flex' : 'none'; 
@@ -472,8 +473,14 @@
             const s = shabads.find(x => x.id == id);
             const player = document.getElementById('main-player');
             const playerWrap = document.getElementById('global-audio-wrap');
-            if(currentId !== id) { player.src = s.audio || ""; }
-            playerWrap.style.display = s.audio ? 'block' : 'none';
+
+            if(currentId !== id) {
+                player.src = s.audio || ""; 
+            }
+            
+            // HIDE TILE IF NO AUDIO LINK EXISTS
+            playerWrap.style.display = (s.audio && s.audio.trim() !== "") ? 'block' : 'none';
+            
             currentId = id;
             history.pushState({view: 'shabad'}, ''); 
             renderLyricsOnly();
@@ -486,6 +493,7 @@
             if(!s) return;
             const title = s[lang]?.t || s.pb?.t;
             const content = s[lang]?.c || s.pb?.c;
+
             document.getElementById('shabad-title-box').innerHTML = `<h2 class="shabad-title">${title}</h2>`;
             document.getElementById('active-container').innerHTML = `<hr><div style="font-size:${fontSize}rem">${content}</div>`;
             
@@ -523,13 +531,17 @@
                 document.getElementById('back-btn').style.display = 'none';
                 document.getElementById('global-audio-wrap').style.display = 'none'; 
                 body.classList.add('index-active');
-                searchBox.classList.remove("search-hidden"); // Reset search visibility
+                searchBox.classList.remove("search-hidden");
                 currentId = null;
             } else {
                 document.getElementById('index-view').style.display = 'none';
                 document.getElementById('shabad-view').style.display = 'block';
                 document.getElementById('back-btn').style.display = 'block';
-                document.getElementById('global-audio-wrap').style.display = 'block';
+                
+                // Keep player visible only if audio link exists
+                const s = shabads.find(x => x.id == currentId);
+                if(s && s.audio) document.getElementById('global-audio-wrap').style.display = 'block';
+                
                 body.classList.remove('index-active');
             }
             window.scrollTo(0,0);
@@ -541,7 +553,6 @@
         document.getElementById('theme-toggle').onclick = () => document.body.classList.toggle('dark-mode');
         document.getElementById('font-increase').onclick = () => { fontSize += 0.1; renderLyricsOnly(); };
         document.getElementById('font-decrease').onclick = () => { if(fontSize > 0.9) fontSize -= 0.1; renderLyricsOnly(); };
-        document.getElementById('search-bar').oninput = renderIndex;
 
         updateUI();
     </script>
