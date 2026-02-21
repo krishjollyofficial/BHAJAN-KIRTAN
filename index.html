@@ -27,7 +27,7 @@
         }
         body { background-color: var(--bg-color); color: var(--text-color); font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; margin: 0; padding: 0; transition: 0.3s ease; width: 100%; overflow-x: hidden; }
         
-        header { background: var(--header-bg); color: white; padding: 25px 15px 15px 15px; text-align: center; position: relative; z-index: 1001; box-sizing: border-box; box-shadow: 0 4px 12px rgba(0,0,0,0.3); }
+        header { background: var(--header-bg); color: white; padding: 20px 15px 15px 15px; text-align: center; position: relative; z-index: 1001; box-sizing: border-box; box-shadow: 0 4px 12px rgba(0,0,0,0.3); }
         body.index-active header { position: sticky; top: 0; }
 
         .header-content { display: flex; align-items: center; justify-content: center; gap: 12px; margin-bottom: 5px; }
@@ -36,14 +36,20 @@
         
         #scroll-top-btn { position: absolute; left: 12px; top: 12px; background: var(--accent-color); color: #000; padding: 5px 10px; border-radius: 8px; font-size: 0.8rem; font-weight: 900; cursor: pointer; border: none; z-index: 1002; }
         
-        /* TWO-LINE TOTAL TILE */
+        /* TWO-LINE TOTAL TILE WITH BIG FONT */
         #shabad-counter { 
             position: absolute; top: 8px; right: 12px; 
             background: var(--accent-color); color: #000; 
-            padding: 4px 10px; border-radius: 12px; 
-            font-size: 0.7rem; font-weight: 800; 
-            line-height: 1.2; text-align: center;
-            min-width: 60px;
+            padding: 3px 6px; border-radius: 10px; 
+            font-size: 0.65rem; font-weight: 900; 
+            line-height: 1.1; text-align: center;
+            min-width: 45px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+        #count-num {
+            font-size: 1rem; 
+            display: block;
+            margin-top: 1px;
         }
 
         #global-audio-wrap {
@@ -60,7 +66,7 @@
         .search-hidden { transform: translateY(-200px); opacity: 0; pointer-events: none; }
         
         .input-wrapper { position: relative; width: 100%; display: flex; align-items: center; justify-content: center; }
-        #search-bar { width: 100%; padding: 14px 45px 14px 22px; border: 1.5px solid #ddd; border-radius: 35px; background: var(--card-bg); color: var(--text-color); font-size: 16px; font-weight: 800; outline: none; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+        #search-bar { width: 100%; padding: 14px 45px 14px 22px; border: 1.5px solid #ddd; border-radius: 35px; background: var(--card-bg); color: var(--text-color); font-size: 16px; font-weight: 800; outline: none; box-sizing: border-box; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
         
         #clear-search { 
             position: absolute; right: 15px; top: 50%; transform: translateY(-50%);
@@ -70,33 +76,34 @@
             font-size: 14px; font-weight: 900; transition: 0.2s; padding: 0;
         }
 
-        .index-links { max-width: 650px; margin: 0 auto; padding: 10px 15px 100px 15px; }
+        /* SHABAD TITLE TILES - INCREASED SIDE SIZE */
+        .index-links { max-width: 600px; margin: 0 auto; padding: 10px 15px 100px 15px; }
         .index-item { 
             display: flex; align-items: center; justify-content: space-between;
-            padding: 18px 20px; margin: 18px 0; background: var(--card-bg); 
+            padding: 18px 22px; margin: 18px 0; background: var(--card-bg); 
             border-radius: 15px; box-shadow: 0 6px 12px rgba(0,0,0,0.08); 
-            cursor: pointer; transition: 0.3s ease; 
+            cursor: pointer; transition: 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); 
         }
-        .shabad-link-text { flex: 1; font-weight: 900; color: #4a148c; text-decoration: none; }
+        .shabad-link-text { flex: 1; font-weight: 900; color: #4a148c; text-decoration: none; font-size: 1.05rem; }
         
         .play-index-btn {
-            background: var(--play-btn-bg); color: var(--play-btn-icon); border: none; width: 36px; height: 36px; 
+            background: var(--play-btn-bg); color: var(--play-btn-icon); border: none; width: 35px; height: 35px; 
             border-radius: 50%; display: flex; align-items: center; justify-content: center;
             margin-left: 15px; font-size: 12px; cursor: pointer; box-shadow: 0 2px 5px rgba(0,0,0,0.2); 
             transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
-        .play-index-btn:hover { transform: scale(1.2); box-shadow: 0 0 10px var(--accent-color); }
+        .play-index-btn:hover { transform: scale(1.2); background: var(--accent-color); color: #000; box-shadow: 0 0 10px var(--accent-color); }
 
         body.dark-mode .index-item { background: #1e1e1e; border: 1px solid rgba(255, 202, 40, 0.1); box-shadow: var(--neon-shadow); }
         body.dark-mode .shabad-link-text { color: #ffca28; }
 
         .shabad-view-container { background: var(--bg-color); min-height: 100vh; padding-bottom: 120px; }
-        .shabad-title { font-size: 1.5rem; font-weight: 950 !important; margin: 0; padding: 30px 20px 5px 20px; text-align: center; color: var(--text-color); background: transparent; }
+        .shabad-title { font-size: 1.5rem; font-weight: 950 !important; margin: 0; padding: 30px 20px 5px 20px; text-align: center; background: var(--bg-color); color: var(--title-color); }
         body.dark-mode .shabad-title { background: var(--title-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .shabad-content-area { padding: 5px 20px; text-align: center; line-height: 2.6; white-space: pre-wrap; font-weight: 500; }
+        .shabad-content-area { padding: 5px 20px; text-align: center; line-height: 2.6; white-space: pre-wrap; font-weight: 500; background: var(--bg-color); }
         
         hr { border: 0; height: 1.5px; background-image: var(--hr-gradient); margin: 20px auto; width: 80%; opacity: 0.6; }
-        button, select { cursor: pointer; font-weight: 900; padding: 10px 14px; border-radius: 10px; border: none; }
+        button, select { cursor: pointer; font-weight: bold; padding: 10px 14px; border-radius: 10px; border: none; }
     </style>
 </head>
 <body class="index-active">
@@ -133,7 +140,9 @@
     <div id="shabad-view" class="shabad-view-container" style="display: none;">
         <div id="shabad-title-box"></div>
         <div id="global-audio-wrap">
-            <audio id="main-player" controls controlsList="nodownload"></audio>
+            <div class="audio-container">
+                <audio id="main-player" controls controlsList="nodownload"></audio>
+            </div>
         </div>
         <div id="active-container" class="shabad-content-area"></div>
     </div>
@@ -454,24 +463,19 @@
 
         let currentId = null;
         let fontSize = 1.3;
-        const player = document.getElementById('main-player');
+        const mainPlayer = document.getElementById('main-player');
         const searchInput = document.getElementById('search-bar');
         const clearBtn = document.getElementById('clear-search');
 
-        player.onplay = () => renderIndex();
-        player.onpause = () => renderIndex();
-        player.onended = () => renderIndex();
+        mainPlayer.onplay = () => renderIndex();
+        mainPlayer.onpause = () => renderIndex();
 
         function updateUI() {
             const lang = document.getElementById('lang-select').value;
-            const ui = { 
-                pb: { title: "ਭਜਨ ਕੀਰਤਨ ਐਪ", search: "ਖੋਜੋ...", back: "⬅ ਪਿੱਛੇ", total: "ਕੁੱਲ:" }, 
-                hi: { title: "भजन कीर्तन ऐप", search: "खोजें...", back: "⬅ पीछे", total: "Total:" } 
-            };
+            const ui = { pb: { title: "ਭਜਨ ਕੀਰਤਨ ਐਪ", search: "ਖੋਜੋ...", back: "⬅ ਪਿੱਛੇ", total: "ਕੁੱਲ:" }, hi: { title: "भजन कीर्तन ऐप", search: "खोजें...", back: "⬅ पीछे", total: "Total:" } };
             document.getElementById('app-title').innerText = ui[lang].title;
             document.getElementById('search-bar').placeholder = ui[lang].search;
             document.getElementById('back-btn').innerText = ui[lang].back;
-            // Update "Total:" text based on language
             document.getElementById('shabad-counter').childNodes[0].textContent = ui[lang].total;
             renderIndex(); 
             if (currentId !== null) renderLyricsOnly(); 
@@ -480,12 +484,12 @@
         function toggleAudio(e, id) {
             e.stopPropagation();
             const s = shabads.find(x => x.id == id);
-            const isSame = player.src.includes(s.audio);
-            if (isSame && !player.paused) {
-                player.pause();
+            const isSame = mainPlayer.src.includes(s.audio);
+            if (isSame && !mainPlayer.paused) {
+                mainPlayer.pause();
             } else {
-                if (!isSame) player.src = s.audio;
-                player.play();
+                if (!isSame) mainPlayer.src = s.audio;
+                mainPlayer.play();
                 if ('mediaSession' in navigator) {
                     const lang = document.getElementById('lang-select').value;
                     navigator.mediaSession.metadata = new MediaMetadata({
@@ -499,7 +503,7 @@
         function openShabad(id) {
             const s = shabads.find(x => x.id == id);
             const wrap = document.getElementById('global-audio-wrap');
-            if(currentId !== id && !player.src.includes(s.audio)) { player.src = s.audio || ""; }
+            if(currentId !== id && !mainPlayer.src.includes(s.audio)) { mainPlayer.src = s.audio || ""; }
             wrap.style.display = s.audio ? 'block' : 'none';
             currentId = id;
             history.pushState({view: 'shabad'}, ''); 
@@ -528,7 +532,6 @@
                 return pool.includes(term);
             }).sort((a, b) => (a[lang]?.t || a.pb?.t).localeCompare(b[lang]?.t || b.pb?.t));
             
-            // Set Number in the second line of the tile
             document.getElementById('count-num').innerText = filtered.length;
             
             filtered.forEach((s, idx) => {
@@ -543,7 +546,7 @@
                 if(s.audio) {
                     const btn = document.createElement('button');
                     btn.className = 'play-index-btn';
-                    const isPlaying = !player.paused && player.src.includes(s.audio);
+                    const isPlaying = !mainPlayer.paused && mainPlayer.src.includes(s.audio);
                     btn.innerHTML = isPlaying ? '⏸' : '▶';
                     btn.onclick = (e) => toggleAudio(e, s.id);
                     item.appendChild(btn);
@@ -559,6 +562,7 @@
                 document.getElementById('back-btn').style.display = 'none';
                 document.getElementById('global-audio-wrap').style.display = 'none'; 
                 document.body.classList.add('index-active');
+                document.getElementById('search-container').classList.remove("search-hidden");
                 currentId = null;
                 renderIndex();
             } else {
