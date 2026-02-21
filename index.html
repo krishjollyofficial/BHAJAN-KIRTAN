@@ -36,17 +36,20 @@
             background: var(--card-bg); box-shadow: 0 8px 20px rgba(0,0,0,0.1); padding: 8px; border: 1px solid rgba(0,0,0,0.05);
         }
         body.dark-mode #global-audio-wrap { box-shadow: var(--neon-shadow); border-color: rgba(255, 202, 40, 0.1); }
+        .audio-container { display: flex; justify-content: center; width: 100%; }
         audio { width: 100%; height: 38px; outline: none; }
 
         .controls-panel { display: flex; justify-content: center; gap: 10px; margin-top: 15px; flex-wrap: wrap; }
         #back-btn { background: var(--accent-color); color: #000; font-weight: bold; border: none; padding: 10px 25px; border-radius: 8px; cursor: pointer; display: none; margin: 12px auto 0 auto; }
         
+        /* SEARCH BOX STYLING */
         .search-container { padding: 20px 15px; display: flex; justify-content: center; max-width: 500px; margin: 0 auto; position: sticky; top: 130px; z-index: 1000; transition: transform 0.4s ease, opacity 0.3s ease; }
-        .search-hidden { transform: translateY(-180px); opacity: 0; pointer-events: none; }
+        .search-hidden { transform: translateY(-200px); opacity: 0; pointer-events: none; }
         
         .input-wrapper { position: relative; width: 100%; display: flex; align-items: center; }
         #search-bar { width: 100%; padding: 14px 45px 14px 22px; border: 1.5px solid #ddd; border-radius: 35px; background: var(--card-bg); color: var(--text-color); font-size: 16px; outline: none; box-sizing: border-box; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
         
+        /* PROFESSIONALLY CENTERED CROSS ICON */
         #clear-search { 
             position: absolute; right: 12px; background: rgba(0,0,0,0.1); color: var(--text-color); 
             border: none; width: 26px; height: 26px; border-radius: 50%; cursor: pointer; 
@@ -59,6 +62,7 @@
         .index-links a { display: block; text-decoration: none; padding: 20px; margin: 18px 0; background: var(--card-bg); border-radius: 15px; font-weight: bold; color: #4a148c; box-shadow: 0 6px 12px rgba(0,0,0,0.08); cursor: pointer; transition: 0.3s ease; }
         body.dark-mode .index-links a { color: #ffca28; background: #1e1e1e; border: 1px solid rgba(255, 202, 40, 0.1); box-shadow: var(--neon-shadow); }
 
+        /* MATCHED BACKGROUND DESIGN */
         .shabad-view-container { background: var(--bg-color); min-height: 100vh; padding-bottom: 120px; }
         .shabad-title { font-size: 1.5rem; font-weight: 700; margin: 0; padding: 30px 20px 5px 20px; text-align: center; background: var(--bg-color); color: var(--title-color); }
         body.dark-mode .shabad-title { background: var(--title-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
@@ -110,6 +114,7 @@
     </div>
 
     <script>
+        // Data Array
         const shabads = 	[
         {"id":1768132842014,"audio":"audio/shabad1.mp3",
 	"pb":{"t":"ਅਬ ਮੁਝਸੇ ਰਹਾ ਨਾ ਜਾਏ","c":"ਅਬ ਮੁਝਸੇ ਰਹਾ ਨਾ ਜਾਏ , ਜਬ ਸੇ ਤੁਮਰੇ ਦਰਸ਼ਨ ਪਾਏ ॥ \nਜੰਗਲ ਜੰਗਲ ਢੂੰਢੇ ਜੋਗੀ ਥੱਕ ਹਾਰੇ , ਝਲਕ ਦਿਖਾਦੋ ਮੋਹੇ ਪ੍ਰੀਤਮ ਪਿਆਰੇ ॥\nਰੈਣ ਨਾ ਵਿਹਾਵੇ ਚੈਨ ਨਾ ਆਵੇ , ਤੁਧ ਬਿਨ ਮੇਰੇ ਪ੍ਰੀਤਮ ਹਰਿ ਰਾਇ ॥ \nਮੋਹੇ ਬਤਾ ਦੋ ਪਿਆਸ ਮਿਟਾ ਦੋ , ਕਿੰਨ ਬਿਧ ਮਿਲੋਗੇ ਰਾਮ ਪਿਆਰੇ ॥\nਨੈਨਾ ਪਿਆਸੇ ਬਿਰਹਾ ਦੇ ਮਾਰੇ , ਚਿੰਤਾ ਚਿੱਤ ਨਿੱਤ ਸਤਾਵੇ ॥ \nਦਰਸ਼ਨ ਦਾਸ ਦਾਸਨ ਕੋ ਦਾਸਾ , ਸੇਵਾ ਸਿਦਕ ਨਾਮ ਸਹਾਰੇ ॥\n( ਯਕੀਨ )"},"hi":{"t":"अब मुझ से रहा ना जाये","c":"अब मुझसे रहा ना जाये , जब से तुमरे दर्शन पाये ।। \nजंगल जंगल ढूँढे जोगी थक्क हारे ,झलक दिखादो मोहे प्रीतम पिआरे ।।\nरैण ना विहावे चैन ना आवे , तुध बिन मेरे प्रीतम हरि राय ।।\nमोहे बता दो पिआस मिटा दो , किंन बिध मिलोगे राम पिआरे ।।\nनैना पिआसे बिरहा दे मारे , चिंता चित्त नित्त सतावे ।।\nदर्शन दास दासन को दासा , सेवा सिदक नाम सहारे ।।\n( यकीन )\n"},"en":{"t":"Ab Mujhse Rah Na Jaye","c":"Ab Mujhse Rah Na Jaye"}},
@@ -467,11 +472,7 @@
             const s = shabads.find(x => x.id == id);
             const player = document.getElementById('main-player');
             const playerWrap = document.getElementById('global-audio-wrap');
-            
-            if(currentId !== id) {
-                player.src = s.audio || ""; 
-            }
-            
+            if(currentId !== id) { player.src = s.audio || ""; }
             playerWrap.style.display = s.audio ? 'block' : 'none';
             currentId = id;
             history.pushState({view: 'shabad'}, ''); 
@@ -485,20 +486,12 @@
             if(!s) return;
             const title = s[lang]?.t || s.pb?.t;
             const content = s[lang]?.c || s.pb?.c;
-
             document.getElementById('shabad-title-box').innerHTML = `<h2 class="shabad-title">${title}</h2>`;
             document.getElementById('active-container').innerHTML = `<hr><div style="font-size:${fontSize}rem">${content}</div>`;
             
-            // FIXED LOCK SCREEN NOTIFICATION
             if ('mediaSession' in navigator) {
                 navigator.mediaSession.metadata = new MediaMetadata({
-                    title: title,
-                    artist: 'Bhajan Kirtan App',
-                    album: 'Sant Trilochan Darshan Das Ji',
-                    artwork: [
-                        { src: 'logo.png', sizes: '96x96',   type: 'image/png' },
-                        { src: 'logo.png', sizes: '512x512', type: 'image/png' }
-                    ]
+                    title: title, artist: 'Bhajan Kirtan App', artwork: [{ src: 'logo.png', sizes: '512x512', type: 'image/png' }]
                 });
             }
         }
@@ -523,13 +516,15 @@
 
         function switchView(isIndex) {
             const body = document.body;
+            const searchBox = document.getElementById('search-container');
             if(isIndex) {
                 document.getElementById('index-view').style.display = 'block';
                 document.getElementById('shabad-view').style.display = 'none';
                 document.getElementById('back-btn').style.display = 'none';
-                // Audio hidden on index but keeps playing
                 document.getElementById('global-audio-wrap').style.display = 'none'; 
                 body.classList.add('index-active');
+                searchBox.classList.remove("search-hidden"); // Reset search visibility
+                currentId = null;
             } else {
                 document.getElementById('index-view').style.display = 'none';
                 document.getElementById('shabad-view').style.display = 'block';
@@ -546,6 +541,7 @@
         document.getElementById('theme-toggle').onclick = () => document.body.classList.toggle('dark-mode');
         document.getElementById('font-increase').onclick = () => { fontSize += 0.1; renderLyricsOnly(); };
         document.getElementById('font-decrease').onclick = () => { if(fontSize > 0.9) fontSize -= 0.1; renderLyricsOnly(); };
+        document.getElementById('search-bar').oninput = renderIndex;
 
         updateUI();
     </script>
