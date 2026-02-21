@@ -11,6 +11,9 @@
             --header-bg: #4a148c; --accent-color: #ffca28; 
             --hr-gradient: linear-gradient(to right, transparent, #444, transparent);
             --title-color: #2c3e50;
+            --cross-bg: rgba(0,0,0,0.1);
+            --play-btn-bg: #2c3e50; 
+            --play-btn-icon: #ffffff;
         }
         body.dark-mode { 
             --bg-color: #121212; --card-bg: #1e1e1e; --text-color: #f0f0f0; 
@@ -18,68 +21,92 @@
             --hr-gradient: linear-gradient(to right, transparent, #888, transparent);
             --title-gradient: linear-gradient(45deg, #ff8a00, #ffca28);
             --neon-shadow: 0 10px 20px rgba(0,0,0,0.5), 0 0 15px rgba(255, 138, 0, 0.15);
+            --cross-bg: rgba(255,255,255,0.2);
+            --play-btn-bg: #ffca28;
+            --play-btn-icon: #000000;
         }
         body { background-color: var(--bg-color); color: var(--text-color); font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; margin: 0; padding: 0; transition: 0.3s ease; width: 100%; overflow-x: hidden; }
         
-        header { background: var(--header-bg); color: white; padding: 20px 15px 15px 15px; text-align: center; position: relative; z-index: 1001; box-sizing: border-box; box-shadow: 0 4px 12px rgba(0,0,0,0.3); }
+        header { background: var(--header-bg); color: white; padding: 25px 15px 15px 15px; text-align: center; position: relative; z-index: 1001; box-sizing: border-box; box-shadow: 0 4px 12px rgba(0,0,0,0.3); }
         body.index-active header { position: sticky; top: 0; }
 
         .header-content { display: flex; align-items: center; justify-content: center; gap: 12px; margin-bottom: 5px; }
         .app-logo { height: 35px; width: 35px; border-radius: 50%; background: white; object-fit: cover; box-shadow: 0 2px 4px rgba(0,0,0,0.2); }
-        #app-title { margin: 0; font-size: 1.5rem; font-weight: 800; }
+        #app-title { margin: 0; font-size: 1.5rem; font-weight: 900; }
         
-        #scroll-top-btn { position: absolute; left: 12px; top: 12px; background: var(--accent-color); color: #000; padding: 5px 10px; border-radius: 8px; font-size: 0.8rem; font-weight: bold; cursor: pointer; border: none; z-index: 1002; }
-        #shabad-counter { position: absolute; top: 12px; right: 12px; background: var(--accent-color); color: #000; padding: 4px 12px; border-radius: 20px; font-size: 0.75rem; font-weight: bold; }
+        #scroll-top-btn { position: absolute; left: 12px; top: 12px; background: var(--accent-color); color: #000; padding: 5px 10px; border-radius: 8px; font-size: 0.8rem; font-weight: 900; cursor: pointer; border: none; z-index: 1002; }
+        
+        /* TWO-LINE TOTAL TILE */
+        #shabad-counter { 
+            position: absolute; top: 8px; right: 12px; 
+            background: var(--accent-color); color: #000; 
+            padding: 4px 10px; border-radius: 12px; 
+            font-size: 0.7rem; font-weight: 800; 
+            line-height: 1.2; text-align: center;
+            min-width: 60px;
+        }
 
-        /* FLOATING AUDIO TILE */
         #global-audio-wrap {
             display: none; width: 92%; max-width: 600px; margin: 10px auto 20px auto; border-radius: 15px;
-            background: var(--card-bg); box-shadow: 0 8px 20px rgba(0,0,0,0.1); padding: 8px; border: 1px solid rgba(0,0,0,0.05);
+            background: var(--card-bg); box-shadow: 0 8px 20px rgba(0,0,0,0.1); padding: 10px; border: 1px solid rgba(0,0,0,0.05);
         }
-        body.dark-mode #global-audio-wrap { box-shadow: var(--neon-shadow); border-color: rgba(255, 202, 40, 0.1); }
-        .audio-container { display: flex; justify-content: center; width: 100%; }
+        body.dark-mode #global-audio-wrap { box-shadow: var(--neon-shadow); }
         audio { width: 100%; height: 38px; outline: none; }
 
         .controls-panel { display: flex; justify-content: center; gap: 10px; margin-top: 15px; flex-wrap: wrap; }
         #back-btn { background: var(--accent-color); color: #000; font-weight: bold; border: none; padding: 10px 25px; border-radius: 8px; cursor: pointer; display: none; margin: 12px auto 0 auto; }
         
-        /* SEARCH BOX AUTO-HIDE */
         .search-container { padding: 20px 15px; display: flex; justify-content: center; max-width: 500px; margin: 0 auto; position: sticky; top: 130px; z-index: 1000; transition: transform 0.4s ease, opacity 0.3s ease; }
-        .search-hidden { transform: translateY(-180px); opacity: 0; pointer-events: none; }
+        .search-hidden { transform: translateY(-200px); opacity: 0; pointer-events: none; }
         
-        .input-wrapper { position: relative; width: 100%; display: flex; align-items: center; }
-        #search-bar { width: 100%; padding: 14px 45px 14px 22px; border: 1.5px solid #ddd; border-radius: 35px; background: var(--card-bg); color: var(--text-color); font-size: 16px; outline: none; box-sizing: border-box; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+        .input-wrapper { position: relative; width: 100%; display: flex; align-items: center; justify-content: center; }
+        #search-bar { width: 100%; padding: 14px 45px 14px 22px; border: 1.5px solid #ddd; border-radius: 35px; background: var(--card-bg); color: var(--text-color); font-size: 16px; font-weight: 800; outline: none; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
         
-        /* PROFESSIONALLY CENTERED CROSS ICON */
         #clear-search { 
-            position: absolute; right: 12px; background: rgba(0,0,0,0.1); color: var(--text-color); 
-            border: none; width: 26px; height: 26px; border-radius: 50%; cursor: pointer; 
+            position: absolute; right: 15px; top: 50%; transform: translateY(-50%);
+            background: var(--cross-bg); color: var(--text-color); 
+            border: none; width: 28px; height: 28px; border-radius: 50%; cursor: pointer; 
             display: none; align-items: center; justify-content: center;
-            font-size: 14px; font-weight: bold; transition: 0.2s; padding: 0;
+            font-size: 14px; font-weight: 900; transition: 0.2s; padding: 0;
         }
-        body.dark-mode #clear-search { background: rgba(255,255,255,0.2); }
 
         .index-links { max-width: 650px; margin: 0 auto; padding: 10px 15px 100px 15px; }
-        .index-links a { display: block; text-decoration: none; padding: 20px; margin: 18px 0; background: var(--card-bg); border-radius: 15px; font-weight: bold; color: #4a148c; box-shadow: 0 6px 12px rgba(0,0,0,0.08); cursor: pointer; transition: 0.3s ease; }
-        body.dark-mode .index-links a { color: #ffca28; background: #1e1e1e; border: 1px solid rgba(255, 202, 40, 0.1); box-shadow: var(--neon-shadow); }
+        .index-item { 
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 18px 20px; margin: 18px 0; background: var(--card-bg); 
+            border-radius: 15px; box-shadow: 0 6px 12px rgba(0,0,0,0.08); 
+            cursor: pointer; transition: 0.3s ease; 
+        }
+        .shabad-link-text { flex: 1; font-weight: 900; color: #4a148c; text-decoration: none; }
+        
+        .play-index-btn {
+            background: var(--play-btn-bg); color: var(--play-btn-icon); border: none; width: 36px; height: 36px; 
+            border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            margin-left: 15px; font-size: 12px; cursor: pointer; box-shadow: 0 2px 5px rgba(0,0,0,0.2); 
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .play-index-btn:hover { transform: scale(1.2); box-shadow: 0 0 10px var(--accent-color); }
+
+        body.dark-mode .index-item { background: #1e1e1e; border: 1px solid rgba(255, 202, 40, 0.1); box-shadow: var(--neon-shadow); }
+        body.dark-mode .shabad-link-text { color: #ffca28; }
 
         .shabad-view-container { background: var(--bg-color); min-height: 100vh; padding-bottom: 120px; }
-        .shabad-title { font-size: 1.5rem; font-weight: 700; margin: 0; padding: 30px 20px 5px 20px; text-align: center; background: var(--bg-color); color: var(--title-color); }
+        .shabad-title { font-size: 1.5rem; font-weight: 950 !important; margin: 0; padding: 30px 20px 5px 20px; text-align: center; color: var(--text-color); background: transparent; }
         body.dark-mode .shabad-title { background: var(--title-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .shabad-content-area { padding: 5px 20px; text-align: center; line-height: 2.6; white-space: pre-wrap; font-weight: 500; background: var(--bg-color); }
+        .shabad-content-area { padding: 5px 20px; text-align: center; line-height: 2.6; white-space: pre-wrap; font-weight: 500; }
         
         hr { border: 0; height: 1.5px; background-image: var(--hr-gradient); margin: 20px auto; width: 80%; opacity: 0.6; }
-        button, select { cursor: pointer; font-weight: bold; padding: 10px 14px; border-radius: 10px; border: none; }
+        button, select { cursor: pointer; font-weight: 900; padding: 10px 14px; border-radius: 10px; border: none; }
     </style>
 </head>
 <body class="index-active">
 
     <header id="app-header">
         <button id="scroll-top-btn" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">Top ↑</button>
-        <div id="shabad-counter">Total: 0</div>
+        <div id="shabad-counter">Total:<br><span id="count-num">0</span></div>
         <div class="header-content">
             <img src="logo.png" alt="Logo" class="app-logo" onerror="this.style.display='none'">
-            <h1 id="app-title">Bhajan Kirtan</h1>
+            <h1 id="app-title">भजन कीर्तन</h1>
         </div>
         <div class="controls-panel">
             <select id="lang-select">
@@ -105,18 +132,14 @@
 
     <div id="shabad-view" class="shabad-view-container" style="display: none;">
         <div id="shabad-title-box"></div>
-        
         <div id="global-audio-wrap">
-            <div class="audio-container">
-                <audio id="main-player" controls controlsList="nodownload"></audio>
-            </div>
+            <audio id="main-player" controls controlsList="nodownload"></audio>
         </div>
-
         <div id="active-container" class="shabad-content-area"></div>
     </div>
 
     <script>
-        const shabads = 	[
+        const shabads = [
         {"id":1768132842014,"audio":"audio/shabad1.mp3",
 	"pb":{"t":"ਅਬ ਮੁਝਸੇ ਰਹਾ ਨਾ ਜਾਏ","c":"ਅਬ ਮੁਝਸੇ ਰਹਾ ਨਾ ਜਾਏ , ਜਬ ਸੇ ਤੁਮਰੇ ਦਰਸ਼ਨ ਪਾਏ ॥ \nਜੰਗਲ ਜੰਗਲ ਢੂੰਢੇ ਜੋਗੀ ਥੱਕ ਹਾਰੇ , ਝਲਕ ਦਿਖਾਦੋ ਮੋਹੇ ਪ੍ਰੀਤਮ ਪਿਆਰੇ ॥\nਰੈਣ ਨਾ ਵਿਹਾਵੇ ਚੈਨ ਨਾ ਆਵੇ , ਤੁਧ ਬਿਨ ਮੇਰੇ ਪ੍ਰੀਤਮ ਹਰਿ ਰਾਇ ॥ \nਮੋਹੇ ਬਤਾ ਦੋ ਪਿਆਸ ਮਿਟਾ ਦੋ , ਕਿੰਨ ਬਿਧ ਮਿਲੋਗੇ ਰਾਮ ਪਿਆਰੇ ॥\nਨੈਨਾ ਪਿਆਸੇ ਬਿਰਹਾ ਦੇ ਮਾਰੇ , ਚਿੰਤਾ ਚਿੱਤ ਨਿੱਤ ਸਤਾਵੇ ॥ \nਦਰਸ਼ਨ ਦਾਸ ਦਾਸਨ ਕੋ ਦਾਸਾ , ਸੇਵਾ ਸਿਦਕ ਨਾਮ ਸਹਾਰੇ ॥\n( ਯਕੀਨ )"},"hi":{"t":"अब मुझ से रहा ना जाये","c":"अब मुझसे रहा ना जाये , जब से तुमरे दर्शन पाये ।। \nजंगल जंगल ढूँढे जोगी थक्क हारे ,झलक दिखादो मोहे प्रीतम पिआरे ।।\nरैण ना विहावे चैन ना आवे , तुध बिन मेरे प्रीतम हरि राय ।।\nमोहे बता दो पिआस मिटा दो , किंन बिध मिलोगे राम पिआरे ।।\nनैना पिआसे बिरहा दे मारे , चिंता चित्त नित्त सतावे ।।\nदर्शन दास दासन को दासा , सेवा सिदक नाम सहारे ।।\n( यकीन )\n"},"en":{"t":"Ab Mujhse Rah Na Jaye","c":"Ab Mujhse Rah Na Jaye"}},
         
@@ -431,56 +454,53 @@
 
         let currentId = null;
         let fontSize = 1.3;
-
-        // SCROLL HIDE SEARCH
-        let lastScrollTop = 0;
-        window.addEventListener("scroll", function() {
-            let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-            const searchBox = document.getElementById('search-container');
-            if (currentId === null) {
-                if (scrollTop > 80 && scrollTop > lastScrollTop) searchBox.classList.add("search-hidden");
-                else searchBox.classList.remove("search-hidden");
-            }
-            lastScrollTop = scrollTop;
-        });
-
+        const player = document.getElementById('main-player');
         const searchInput = document.getElementById('search-bar');
         const clearBtn = document.getElementById('clear-search');
 
-        clearBtn.onclick = function() {
-            searchInput.value = '';
-            clearBtn.style.display = 'none';
-            renderIndex();
-            searchInput.focus();
-        };
-
-        searchInput.oninput = function() {
-            clearBtn.style.display = this.value ? 'flex' : 'none'; 
-            renderIndex();
-        };
+        player.onplay = () => renderIndex();
+        player.onpause = () => renderIndex();
+        player.onended = () => renderIndex();
 
         function updateUI() {
             const lang = document.getElementById('lang-select').value;
-            const ui = { pb: { title: "ਭਜਨ ਕੀਰਤਨ ਐਪ", search: "ਖੋਜੋ...", back: "⬅ ਪਿੱਛੇ" }, hi: { title: "भजन कीर्तन ऐप", search: "खोजें...", back: "⬅ पीछे" } };
+            const ui = { 
+                pb: { title: "ਭਜਨ ਕੀਰਤਨ ਐਪ", search: "ਖੋਜੋ...", back: "⬅ ਪਿੱਛੇ", total: "ਕੁੱਲ:" }, 
+                hi: { title: "भजन कीर्तन ऐप", search: "खोजें...", back: "⬅ पीछे", total: "Total:" } 
+            };
             document.getElementById('app-title').innerText = ui[lang].title;
             document.getElementById('search-bar').placeholder = ui[lang].search;
             document.getElementById('back-btn').innerText = ui[lang].back;
+            // Update "Total:" text based on language
+            document.getElementById('shabad-counter').childNodes[0].textContent = ui[lang].total;
             renderIndex(); 
             if (currentId !== null) renderLyricsOnly(); 
         }
 
+        function toggleAudio(e, id) {
+            e.stopPropagation();
+            const s = shabads.find(x => x.id == id);
+            const isSame = player.src.includes(s.audio);
+            if (isSame && !player.paused) {
+                player.pause();
+            } else {
+                if (!isSame) player.src = s.audio;
+                player.play();
+                if ('mediaSession' in navigator) {
+                    const lang = document.getElementById('lang-select').value;
+                    navigator.mediaSession.metadata = new MediaMetadata({
+                        title: s[lang]?.t || s.pb?.t, artist: 'Bhajan Kirtan App', artwork: [{ src: 'logo.png', sizes: '512x512', type: 'image/png' }]
+                    });
+                }
+            }
+            renderIndex();
+        }
+
         function openShabad(id) {
             const s = shabads.find(x => x.id == id);
-            const player = document.getElementById('main-player');
-            const playerWrap = document.getElementById('global-audio-wrap');
-
-            if(currentId !== id) {
-                player.src = s.audio || ""; 
-            }
-            
-            // HIDE TILE IF NO AUDIO LINK EXISTS
-            playerWrap.style.display = (s.audio && s.audio.trim() !== "") ? 'block' : 'none';
-            
+            const wrap = document.getElementById('global-audio-wrap');
+            if(currentId !== id && !player.src.includes(s.audio)) { player.src = s.audio || ""; }
+            wrap.style.display = s.audio ? 'block' : 'none';
             currentId = id;
             history.pushState({view: 'shabad'}, ''); 
             renderLyricsOnly();
@@ -493,15 +513,8 @@
             if(!s) return;
             const title = s[lang]?.t || s.pb?.t;
             const content = s[lang]?.c || s.pb?.c;
-
             document.getElementById('shabad-title-box').innerHTML = `<h2 class="shabad-title">${title}</h2>`;
             document.getElementById('active-container').innerHTML = `<hr><div style="font-size:${fontSize}rem">${content}</div>`;
-            
-            if ('mediaSession' in navigator) {
-                navigator.mediaSession.metadata = new MediaMetadata({
-                    title: title, artist: 'Bhajan Kirtan App', artwork: [{ src: 'logo.png', sizes: '512x512', type: 'image/png' }]
-                });
-            }
         }
 
         function renderIndex() {
@@ -509,50 +522,74 @@
             const container = document.getElementById('index-links');
             const term = searchInput.value.toLowerCase().trim();
             container.innerHTML = '';
+            
             const filtered = shabads.filter(s => {
                 const pool = [s.pb?.t, s.hi?.t, s.en?.t, s.pb?.c, s.hi?.c, s.en?.c].join(' ').toLowerCase();
                 return pool.includes(term);
             }).sort((a, b) => (a[lang]?.t || a.pb?.t).localeCompare(b[lang]?.t || b.pb?.t));
-            document.getElementById('shabad-counter').innerText = term === "" ? `Total: ${shabads.length}` : `Found: ${filtered.length}`;
+            
+            // Set Number in the second line of the tile
+            document.getElementById('count-num').innerText = filtered.length;
+            
             filtered.forEach((s, idx) => {
-                const a = document.createElement('a');
-                a.innerText = `${idx + 1}. ${s[lang]?.t || s.pb?.t}`;
-                a.onclick = () => openShabad(s.id);
-                container.appendChild(a);
+                const item = document.createElement('div');
+                item.className = 'index-item';
+                item.onclick = () => openShabad(s.id);
+                const text = document.createElement('div');
+                text.className = 'shabad-link-text';
+                text.innerText = `${idx + 1}. ${s[lang]?.t || s.pb?.t}`;
+                item.appendChild(text);
+
+                if(s.audio) {
+                    const btn = document.createElement('button');
+                    btn.className = 'play-index-btn';
+                    const isPlaying = !player.paused && player.src.includes(s.audio);
+                    btn.innerHTML = isPlaying ? '⏸' : '▶';
+                    btn.onclick = (e) => toggleAudio(e, s.id);
+                    item.appendChild(btn);
+                }
+                container.appendChild(item);
             });
         }
 
         function switchView(isIndex) {
-            const body = document.body;
-            const searchBox = document.getElementById('search-container');
             if(isIndex) {
                 document.getElementById('index-view').style.display = 'block';
                 document.getElementById('shabad-view').style.display = 'none';
                 document.getElementById('back-btn').style.display = 'none';
                 document.getElementById('global-audio-wrap').style.display = 'none'; 
-                body.classList.add('index-active');
-                searchBox.classList.remove("search-hidden");
+                document.body.classList.add('index-active');
                 currentId = null;
+                renderIndex();
             } else {
                 document.getElementById('index-view').style.display = 'none';
                 document.getElementById('shabad-view').style.display = 'block';
                 document.getElementById('back-btn').style.display = 'block';
-                
-                // Keep player visible only if audio link exists
                 const s = shabads.find(x => x.id == currentId);
                 if(s && s.audio) document.getElementById('global-audio-wrap').style.display = 'block';
-                
-                body.classList.remove('index-active');
+                document.body.classList.remove('index-active');
             }
             window.scrollTo(0,0);
         }
 
         window.onpopstate = () => switchView(true);
         document.getElementById('back-btn').onclick = () => history.back();
-        document.getElementById('lang-select').onchange = updateUI;
         document.getElementById('theme-toggle').onclick = () => document.body.classList.toggle('dark-mode');
         document.getElementById('font-increase').onclick = () => { fontSize += 0.1; renderLyricsOnly(); };
         document.getElementById('font-decrease').onclick = () => { if(fontSize > 0.9) fontSize -= 0.1; renderLyricsOnly(); };
+        document.getElementById('lang-select').onchange = updateUI;
+        clearBtn.onclick = () => { searchInput.value = ''; clearBtn.style.display = 'none'; renderIndex(); };
+        searchInput.oninput = function() { clearBtn.style.display = this.value ? 'flex' : 'none'; renderIndex(); };
+
+        let lastST = 0;
+        window.addEventListener("scroll", () => {
+            let st = window.pageYOffset || document.documentElement.scrollTop;
+            if (currentId === null) {
+                if (st > 80 && st > lastST) document.getElementById('search-container').classList.add("search-hidden");
+                else document.getElementById('search-container').classList.remove("search-hidden");
+            }
+            lastST = st;
+        });
 
         updateUI();
     </script>
