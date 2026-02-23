@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
     <link rel="icon" type="image/x-icon" href="logo.png">
+    <link rel="apple-touch-icon" href="logo.png">
     <title>Bhajan Kirtan</title>
     <style>
         :root { 
@@ -36,7 +37,6 @@
         
         #scroll-top-btn { position: absolute; left: 12px; top: 12px; background: var(--accent-color); color: #000; padding: 5px 10px; border-radius: 8px; font-size: 0.8rem; font-weight: 900; cursor: pointer; border: none; z-index: 1002; }
         
-        /* TWO-LINE TOTAL TILE WITH BIG FONT */
         #shabad-counter { 
             position: absolute; top: 8px; right: 12px; 
             background: var(--accent-color); color: #000; 
@@ -76,7 +76,6 @@
             font-size: 14px; font-weight: 900; transition: 0.2s; padding: 0;
         }
 
-        /* SHABAD TITLE TILES - INCREASED SIDE SIZE */
         .index-links { max-width: 600px; margin: 0 auto; padding: 10px 15px 100px 15px; }
         .index-item { 
             display: flex; align-items: center; justify-content: space-between;
@@ -148,6 +147,7 @@
     </div>
 
     <script>
+        // Use your full shabads array here
         const shabads = [
         {"id":1768132842014,"audio":"audio/shabad1.mp3",
 	"pb":{"t":"ਅਬ ਮੁਝਸੇ ਰਹਾ ਨਾ ਜਾਏ","c":"ਅਬ ਮੁਝਸੇ ਰਹਾ ਨਾ ਜਾਏ , ਜਬ ਸੇ ਤੁਮਰੇ ਦਰਸ਼ਨ ਪਾਏ ॥ \nਜੰਗਲ ਜੰਗਲ ਢੂੰਢੇ ਜੋਗੀ ਥੱਕ ਹਾਰੇ , ਝਲਕ ਦਿਖਾਦੋ ਮੋਹੇ ਪ੍ਰੀਤਮ ਪਿਆਰੇ ॥\nਰੈਣ ਨਾ ਵਿਹਾਵੇ ਚੈਨ ਨਾ ਆਵੇ , ਤੁਧ ਬਿਨ ਮੇਰੇ ਪ੍ਰੀਤਮ ਹਰਿ ਰਾਇ ॥ \nਮੋਹੇ ਬਤਾ ਦੋ ਪਿਆਸ ਮਿਟਾ ਦੋ , ਕਿੰਨ ਬਿਧ ਮਿਲੋਗੇ ਰਾਮ ਪਿਆਰੇ ॥\nਨੈਨਾ ਪਿਆਸੇ ਬਿਰਹਾ ਦੇ ਮਾਰੇ , ਚਿੰਤਾ ਚਿੱਤ ਨਿੱਤ ਸਤਾਵੇ ॥ \nਦਰਸ਼ਨ ਦਾਸ ਦਾਸਨ ਕੋ ਦਾਸਾ , ਸੇਵਾ ਸਿਦਕ ਨਾਮ ਸਹਾਰੇ ॥\n( ਯਕੀਨ )"},"hi":{"t":"अब मुझ से रहा ना जाये","c":"अब मुझसे रहा ना जाये , जब से तुमरे दर्शन पाये ।। \nजंगल जंगल ढूँढे जोगी थक्क हारे ,झलक दिखादो मोहे प्रीतम पिआरे ।।\nरैण ना विहावे चैन ना आवे , तुध बिन मेरे प्रीतम हरि राय ।।\nमोहे बता दो पिआस मिटा दो , किंन बिध मिलोगे राम पिआरे ।।\nनैना पिआसे बिरहा दे मारे , चिंता चित्त नित्त सतावे ।।\nदर्शन दास दासन को दासा , सेवा सिदक नाम सहारे ।।\n( यकीन )\n"},"en":{"t":"Ab Mujhse Rah Na Jaye","c":"Ab Mujhse Rah Na Jaye"}},
@@ -721,16 +721,21 @@
 
         let currentId = null;
         let fontSize = 1.3;
-        const mainPlayer = document.getElementById('main-player');
+        const player = document.getElementById('main-player');
         const searchInput = document.getElementById('search-bar');
         const clearBtn = document.getElementById('clear-search');
 
-        mainPlayer.onplay = () => renderIndex();
-        mainPlayer.onpause = () => renderIndex();
+        // Play/Pause Sync Fix: Update Index when player state changes
+        player.onplay = () => renderIndex();
+        player.onpause = () => renderIndex();
+        player.onended = () => renderIndex();
 
         function updateUI() {
             const lang = document.getElementById('lang-select').value;
-            const ui = { pb: { title: "ਭਜਨ ਕੀਰਤਨ ਐਪ", search: "ਖੋਜੋ...", back: "⬅ ਪਿੱਛੇ", total: "ਕੁੱਲ:" }, hi: { title: "भजन कीर्तन ऐप", search: "खोजें...", back: "⬅ पीछे", total: "Total:" } };
+            const ui = { 
+                pb: { title: "ਭਜਨ ਕੀਰਤਨ ਐਪ", search: "ਖੋਜੋ...", back: "⬅ ਪਿੱਛੇ", total: "ਕੁੱਲ:" }, 
+                hi: { title: "भजन कीर्तन ऐप", search: "खोजें...", back: "⬅ पीछे", total: "Total:" } 
+            };
             document.getElementById('app-title').innerText = ui[lang].title;
             document.getElementById('search-bar').placeholder = ui[lang].search;
             document.getElementById('back-btn').innerText = ui[lang].back;
@@ -742,27 +747,34 @@
         function toggleAudio(e, id) {
             e.stopPropagation();
             const s = shabads.find(x => x.id == id);
-            const isSame = mainPlayer.src.includes(s.audio);
-            if (isSame && !mainPlayer.paused) {
-                mainPlayer.pause();
+            
+            // Check if this specific audio is currently loaded and playing
+            const isThisAudio = player.src.includes(encodeURI(s.audio));
+
+            if (isThisAudio && !player.paused) {
+                player.pause();
             } else {
-                if (!isSame) mainPlayer.src = s.audio;
-                mainPlayer.play();
+                if (!isThisAudio) player.src = s.audio;
+                player.play();
+                
+                // Update media session for lock screen
                 if ('mediaSession' in navigator) {
                     const lang = document.getElementById('lang-select').value;
                     navigator.mediaSession.metadata = new MediaMetadata({
-                        title: s[lang]?.t || s.pb?.t, artist: 'Bhajan Kirtan App', artwork: [{ src: 'logo.png', sizes: '512x512', type: 'image/png' }]
+                        title: s[lang]?.t || s.pb?.t,
+                        artist: 'Bhajan Kirtan App',
+                        artwork: [{ src: 'logo.png', sizes: '512x512', type: 'image/png' }]
                     });
                 }
             }
-            renderIndex();
+            renderIndex(); // Force refresh to show correct icons
         }
 
         function openShabad(id) {
             const s = shabads.find(x => x.id == id);
             const wrap = document.getElementById('global-audio-wrap');
-            if(currentId !== id && !mainPlayer.src.includes(s.audio)) { mainPlayer.src = s.audio || ""; }
-            wrap.style.display = s.audio ? 'block' : 'none';
+            if(currentId !== id && !player.src.includes(encodeURI(s.audio))) { player.src = s.audio || ""; }
+            wrap.style.display = (s.audio && s.audio.trim() !== "") ? 'block' : 'none';
             currentId = id;
             history.pushState({view: 'shabad'}, ''); 
             renderLyricsOnly();
@@ -801,10 +813,11 @@
                 text.innerText = `${idx + 1}. ${s[lang]?.t || s.pb?.t}`;
                 item.appendChild(text);
 
-                if(s.audio) {
+                if(s.audio && s.audio.trim() !== "") {
                     const btn = document.createElement('button');
                     btn.className = 'play-index-btn';
-                    const isPlaying = !mainPlayer.paused && mainPlayer.src.includes(s.audio);
+                    // Determine if this specific item is playing
+                    const isPlaying = !player.paused && player.src.includes(encodeURI(s.audio));
                     btn.innerHTML = isPlaying ? '⏸' : '▶';
                     btn.onclick = (e) => toggleAudio(e, s.id);
                     item.appendChild(btn);
@@ -820,7 +833,6 @@
                 document.getElementById('back-btn').style.display = 'none';
                 document.getElementById('global-audio-wrap').style.display = 'none'; 
                 document.body.classList.add('index-active');
-                document.getElementById('search-container').classList.remove("search-hidden");
                 currentId = null;
                 renderIndex();
             } else {
