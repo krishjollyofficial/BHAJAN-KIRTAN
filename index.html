@@ -1425,7 +1425,7 @@
         document.getElementById('btn-install').addEventListener('click', async () => {
             if (deferredPrompt) {
                 deferredPrompt.prompt();
-                const { outcome } = await deferredPrompt.userChoice;
+                await deferredPrompt.userChoice;
                 deferredPrompt = null;
                 installBanner.style.display = 'none';
             }
@@ -1435,6 +1435,26 @@
             installBanner.style.display = 'none';
             localStorage.setItem('pwaPromptDismissed', 'true');
         });
+
+        // --- LOCK SCREEN (MEDIA SESSION) LOGIC ---
+        function updateMediaSession(s) {
+            if ('mediaSession' in navigator) {
+                const lang = document.getElementById('lang-select').value;
+                const shabadTitle = s[lang]?.t || s.pb?.t || "Shabad";
+
+                navigator.mediaSession.metadata = new MediaMetadata({
+                    title: shabadTitle,
+                    artist: 'Bhajan Kirtan App',
+                    album: 'Gurbani Kirtan',
+                    artwork: [
+                        { src: 'logo.png', sizes: '512x512', type: 'image/png' }
+                    ]
+                });
+
+                navigator.mediaSession.setActionHandler('play', () => player.play());
+                navigator.mediaSession.setActionHandler('pause', () => player.pause());
+            }
+        }
 
         // --- APP LOGIC ---
         let currentId = null;
@@ -1467,6 +1487,8 @@
             wrap.style.display = (s.audio && s.audio.trim() !== "") ? 'block' : 'none';
             currentId = id;
             history.pushState({view: 'shabad'}, ''); 
+            
+            updateMediaSession(s); // Update Lock Screen
             renderLyricsOnly();
             switchView(false);
         }
@@ -1504,8 +1526,13 @@
 
         function toggleAudio(id) {
             const s = shabads.find(x => x.id == id);
-            if (player.src.includes(encodeURI(s.audio)) && !player.paused) player.pause();
-            else { player.src = s.audio; player.play(); }
+            if (player.src.includes(encodeURI(s.audio)) && !player.paused) {
+                player.pause();
+            } else {
+                player.src = s.audio;
+                updateMediaSession(s); // Update Lock Screen
+                player.play();
+            }
             renderIndex();
         }
 
