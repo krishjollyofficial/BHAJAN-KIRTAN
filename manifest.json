@@ -1,0 +1,20 @@
+{
+  "name": "Bhajan Kirtan App",
+  "short_name": "Bhajan",
+  "start_url": "index.html",
+  "display": "standalone",
+  "background_color": "#f1f3f5",
+  "theme_color": "#4a148c",
+  "icons": [
+    {
+      "src": "logo.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "logo.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
