@@ -32,109 +32,62 @@
         }
         body { background-color: var(--bg-color); color: var(--text-color); font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; margin: 0; padding: 0; transition: 0.3s ease; width: 100%; overflow-x: hidden; }
         
-        header { background: var(--header-bg); color: white; padding: 20px 15px 15px 15px; text-align: center; position: relative; z-index: 1001; box-sizing: border-box; box-shadow: 0 4px 12px rgba(0,0,0,0.3); }
-        body.index-active header { position: sticky; top: 0; }
-
+        header { background: var(--header-bg); color: white; padding: 20px 15px 15px 15px; text-align: center; position: fixed; top: 0; width: 100%; z-index: 1001; box-sizing: border-box; box-shadow: 0 4px 12px rgba(0,0,0,0.3); transition: transform 0.3s ease; }
+        
         .header-content { display: flex; align-items: center; justify-content: center; gap: 12px; margin-bottom: 5px; }
-        .app-logo { height: 35px; width: 35px; border-radius: 50%; background: white; object-fit: cover; box-shadow: 0 2px 4px rgba(0,0,0,0.2); }
+        .app-logo { height: 35px; width: 35px; border-radius: 50%; background: white; object-fit: cover; }
         #app-title { margin: 0; font-size: 1.5rem; font-weight: 900; }
         
-        #scroll-top-btn { position: absolute; left: 12px; top: 12px; background: var(--accent-color); color: #000; padding: 5px 10px; border-radius: 8px; font-size: 0.8rem; font-weight: 900; cursor: pointer; border: none; z-index: 1002; }
+        #shabad-counter { position: absolute; top: 8px; right: 12px; background: var(--accent-color); color: #000; padding: 3px 6px; border-radius: 10px; font-size: 0.65rem; font-weight: 900; line-height: 1.1; text-align: center; }
         
-        #shabad-counter { 
-            position: absolute; top: 8px; right: 12px; 
-            background: var(--accent-color); color: #000; 
-            padding: 3px 6px; border-radius: 10px; 
-            font-size: 0.65rem; font-weight: 900; 
-            line-height: 1.1; text-align: center;
-            min-width: 45px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
-        }
-        #count-num { font-size: 1rem; display: block; margin-top: 1px; }
-
-        #global-audio-wrap {
-            display: none; width: 92%; max-width: 600px; margin: 10px auto 20px auto; border-radius: 15px;
-            background: var(--card-bg); box-shadow: 0 8px 20px rgba(0,0,0,0.1); padding: 10px; border: 1px solid rgba(0,0,0,0.05);
-        }
-        body.dark-mode #global-audio-wrap { box-shadow: var(--neon-shadow); }
-        audio { width: 100%; height: 38px; outline: none; }
-
-        #back-btn { background: var(--accent-color); color: #000; font-weight: bold; border: none; padding: 10px 25px; border-radius: 8px; cursor: pointer; display: none; margin: 12px auto 0 auto; }
+        #global-audio-wrap { display: none; width: 92%; max-width: 600px; margin: 100px auto 20px auto; border-radius: 15px; background: var(--card-bg); padding: 10px; box-shadow: 0 8px 20px rgba(0,0,0,0.1); }
         
-        .search-container { padding: 20px 15px; display: flex; justify-content: center; max-width: 500px; margin: 0 auto; position: sticky; top: 130px; z-index: 1000; transition: transform 0.4s ease, opacity 0.3s ease; }
-        .search-hidden { transform: translateY(-200px); opacity: 0; pointer-events: none; }
+        .search-container { padding: 20px 15px; display: flex; justify-content: center; max-width: 500px; margin: 80px auto 0 auto; position: sticky; top: 80px; z-index: 1000; transition: transform 0.3s ease, opacity 0.3s ease; background: var(--bg-color); }
+        .search-hidden { transform: translateY(-150px); opacity: 0; pointer-events: none; }
         
-        .input-wrapper { position: relative; width: 100%; display: flex; align-items: center; justify-content: center; }
-        #search-bar { width: 100%; padding: 14px 45px 14px 22px; border: 1.5px solid #ddd; border-radius: 35px; background: var(--card-bg); color: var(--text-color); font-size: 16px; font-weight: 800; outline: none; box-sizing: border-box; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+        .input-wrapper { position: relative; width: 100%; display: flex; align-items: center; }
+        #search-bar { width: 100%; padding: 14px 45px 14px 22px; border: 1.5px solid #ddd; border-radius: 35px; background: var(--card-bg); color: var(--text-color); font-size: 16px; font-weight: 800; outline: none; }
         
-        #clear-search { 
-            position: absolute; right: 15px; top: 50%; transform: translateY(-50%);
-            background: var(--cross-bg); color: var(--text-color); 
-            border: none; width: 28px; height: 28px; border-radius: 50%; cursor: pointer; 
-            display: none; align-items: center; justify-content: center;
-        }
+        #clear-search { position: absolute; right: 15px; display: none; background: var(--cross-bg); color: var(--text-color); border: none; width: 28px; height: 28px; border-radius: 50%; cursor: pointer; align-items: center; justify-content: center; font-weight: 900; }
 
         .index-links { max-width: 600px; margin: 0 auto; padding: 10px 15px 100px 15px; }
-        .index-item { 
-            display: flex; align-items: center; justify-content: space-between;
-            padding: 18px 22px; margin: 18px 0; background: var(--card-bg); 
-            border-radius: 15px; box-shadow: 0 6px 12px rgba(0,0,0,0.08); 
-            cursor: pointer; transition: 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); 
-        }
-        .shabad-link-text { flex: 1; font-weight: 900; color: #4a148c; text-decoration: none; font-size: 1.05rem; }
-        
-        .play-index-btn {
-            background: var(--play-btn-bg); color: var(--play-btn-icon); border: none; width: 35px; height: 35px; 
-            border-radius: 50%; display: flex; align-items: center; justify-content: center;
-            margin-left: 15px; font-size: 12px; cursor: pointer;
-        }
-
+        .index-item { display: flex; align-items: center; justify-content: space-between; padding: 18px 22px; margin: 18px 0; background: var(--card-bg); border-radius: 15px; box-shadow: 0 6px 12px rgba(0,0,0,0.08); cursor: pointer; }
+        .shabad-link-text { flex: 1; font-weight: 900; color: #4a148c; text-decoration: none; }
         body.dark-mode .shabad-link-text { color: #ffca28; }
-
-        .shabad-view-container { background: var(--bg-color); min-height: 100vh; padding-bottom: 120px; }
-        .shabad-title { font-size: 1.5rem; font-weight: 950 !important; margin: 0; padding: 30px 20px 5px 20px; text-align: center; color: var(--title-color); }
-        body.dark-mode .shabad-title { background: var(--title-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .shabad-content-area { padding: 5px 20px; text-align: center; line-height: 2.6; white-space: pre-wrap; font-weight: 500; }
         
-        hr { border: 0; height: 1.5px; background-image: var(--hr-gradient); margin: 20px auto; width: 80%; opacity: 0.6; }
-        button, select { cursor: pointer; font-weight: bold; padding: 10px 14px; border-radius: 10px; border: none; }
+        .play-index-btn { background: var(--play-btn-bg); color: var(--play-btn-icon); border: none; width: 35px; height: 35px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; }
 
-        /* Install Banner Styling */
-        #install-banner {
-            display:none; position:fixed; bottom:20px; left:50%; transform:translateX(-50%); 
-            background:#4a148c; color:white; padding:15px 25px; border-radius:50px; 
-            z-index:9999; box-shadow: 0 10px 25px rgba(0,0,0,0.3); 
-            align-items:center; gap:15px; width: 90%; max-width: 400px; justify-content: space-between;
-        }
+        #shabad-view { margin-top: 100px; }
+        .shabad-title { font-size: 1.5rem; font-weight: 950; text-align: center; color: var(--title-color); }
+        .shabad-content-area { padding: 20px; text-align: center; line-height: 2.6; white-space: pre-wrap; font-weight: 500; }
+        
+        #install-banner { display:none; position:fixed; bottom:20px; left:50%; transform:translateX(-50%); background:#4a148c; color:white; padding:15px 25px; border-radius:50px; z-index:9999; align-items:center; gap:15px; width: 90%; max-width: 400px; justify-content: space-between; box-shadow: 0 10px 25px rgba(0,0,0,0.3); }
+        button { cursor: pointer; font-weight: bold; border-radius: 10px; border: none; }
     </style>
 </head>
 <body class="index-active">
 
     <div id="install-banner">
-        <span style="font-weight:bold; font-size: 0.9rem;">App Install Karein?</span>
+        <span>App Install Karein?</span>
         <div style="display:flex; gap:10px;">
-            <button id="btn-install" style="background:#ffca28; color:black; border:none; padding:8px 15px; border-radius:20px; font-weight:bold;">Install</button>
-            <button id="btn-close" style="background:transparent; color:white; border:none; font-size:1.2rem; cursor:pointer;">✕</button>
+            <button id="btn-install" style="background:#ffca28; color:black; padding:8px 15px; border-radius:20px;">Install</button>
+            <button id="btn-close" style="background:transparent; color:white; font-size:1.2rem;">✕</button>
         </div>
     </div>
 
     <header id="app-header">
-        <button id="scroll-top-btn" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">Top ↑</button>
         <div id="shabad-counter">Total:<br><span id="count-num">0</span></div>
         <div class="header-content">
             <img src="logo.png" alt="Logo" class="app-logo" onerror="this.style.display='none'">
             <h1 id="app-title">भजन कीर्तन</h1>
         </div>
         <div class="controls-panel">
-            <select id="lang-select">
-                <option value="pb">ਪੰਜਾਬੀ</option>
-                <option value="hi" selected>हिन्दी</option>
-            </select>
+            <select id="lang-select"><option value="pb">ਪੰਜਾਬੀ</option><option value="hi" selected>हिन्दी</option></select>
             <button id="theme-toggle">🌙 Mode</button>
             <button id="font-increase">A+</button>
             <button id="font-decrease">A-</button>
         </div>
-        <button id="back-btn">⬅ Back</button>
+        <button id="back-btn" style="display:none; margin-top:10px; background:var(--accent-color); padding:10px 20px;">⬅ Back</button>
     </header>
 
     <div id="index-view">
@@ -150,15 +103,12 @@
     <div id="shabad-view" class="shabad-view-container" style="display: none;">
         <div id="shabad-title-box"></div>
         <div id="global-audio-wrap">
-            <div class="audio-container">
-                <audio id="main-player" controls controlsList="nodownload"></audio>
-            </div>
+            <audio id="main-player" controls controlsList="nodownload"></audio>
         </div>
         <div id="active-container" class="shabad-content-area"></div>
     </div>
 
     <script>
-        // --- DATA AREA ---
         const shabads = [
         {"id":1768132842014,"audio":"audio/shabad1.mp3",
 	"pb":{"t":"ਅਬ ਮੁਝਸੇ ਰਹਾ ਨਾ ਜਾਏ","c":"ਅਬ ਮੁਝਸੇ ਰਹਾ ਨਾ ਜਾਏ , ਜਬ ਸੇ ਤੁਮਰੇ ਦਰਸ਼ਨ ਪਾਏ ॥ \nਜੰਗਲ ਜੰਗਲ ਢੂੰਢੇ ਜੋਗੀ ਥੱਕ ਹਾਰੇ , ਝਲਕ ਦਿਖਾਦੋ ਮੋਹੇ ਪ੍ਰੀਤਮ ਪਿਆਰੇ ॥\nਰੈਣ ਨਾ ਵਿਹਾਵੇ ਚੈਨ ਨਾ ਆਵੇ , ਤੁਧ ਬਿਨ ਮੇਰੇ ਪ੍ਰੀਤਮ ਹਰਿ ਰਾਇ ॥ \nਮੋਹੇ ਬਤਾ ਦੋ ਪਿਆਸ ਮਿਟਾ ਦੋ , ਕਿੰਨ ਬਿਧ ਮਿਲੋਗੇ ਰਾਮ ਪਿਆਰੇ ॥\nਨੈਨਾ ਪਿਆਸੇ ਬਿਰਹਾ ਦੇ ਮਾਰੇ , ਚਿੰਤਾ ਚਿੱਤ ਨਿੱਤ ਸਤਾਵੇ ॥ \nਦਰਸ਼ਨ ਦਾਸ ਦਾਸਨ ਕੋ ਦਾਸਾ , ਸੇਵਾ ਸਿਦਕ ਨਾਮ ਸਹਾਰੇ ॥\n( ਯਕੀਨ )"},"hi":{"t":"अब मुझ से रहा ना जाये","c":"अब मुझसे रहा ना जाये , जब से तुमरे दर्शन पाये ।। \nजंगल जंगल ढूँढे जोगी थक्क हारे ,झलक दिखादो मोहे प्रीतम पिआरे ।।\nरैण ना विहावे चैन ना आवे , तुध बिन मेरे प्रीतम हरि राय ।।\nमोहे बता दो पिआस मिटा दो , किंन बिध मिलोगे राम पिआरे ।।\nनैना पिआसे बिरहा दे मारे , चिंता चित्त नित्त सतावे ।।\nदर्शन दास दासन को दासा , सेवा सिदक नाम सहारे ।।\n( यकीन )\n"},"en":{"t":"Ab Mujhse Rah Na Jaye","c":"Ab Mujhse Rah Na Jaye"}},
@@ -1410,71 +1360,56 @@
 	{"id":1774972446633,"audio":"audio/KINNA SOHNA TENU RAB NE BANAYA.mp3",
 	"pb":{"t":"ਕਿੰਨਾ ਸੋਹਣਾ ਤੈਨੂੰ ਰੱਬ ਨੇ ਬਣਾਇਆ","c":"ਕਿੰਨਾ ਸੋਹਣਾ ਤੈਨੂੰ ਰੱਬ ਨੇ ਬਣਾਇਆ ਦਿਲ ਕਰੇ ਵੇਖਦਾ ਰਵਾਂ ,\nਦਿਲ ਮੁੜਦਾ ਨੀ ਲੱਖ ਸਮਝਾਇਆ ਦਿਲ ਕਰੇ ਵੇਖਦਾ ਰਵਾਂ ।\nਕਿੰਨਾ ਸੋਹਣਾ .....\n\nਪਿਆਰ ਤੇਰਾ ਏ ਜ਼ਿੰਦਗੀ ਮੇਰੀ ਕਰਨੀ ਏ ਮੈਂ ਪੂਜਾ ਤੇਰੀ ,\nਮੇਰੀ ਜ਼ਿੰਦਗੀ ਦਾ ਐਹੋ ਸਰਮਾਇਆ ਦਿਲ ਕਰੇ ਵੇਖਦਾ ਰਵਾਂ ।\nਕਿੰਨਾ ਸੋਹਣਾ .....\n\nਮੁੱਖ ਤੇਰਾ ਸੋਹਣਿਆ ਗੁਲਾਬ ਨਾਲੋਂ ਚੰਗਾ ਏ ,\nਨਸ਼ਾ ਤੇਰੀ ਅੱਖ ਦਾ ਸ਼ਰਾਬ ਨਾਲੋਂ ਚੰਗਾ ਏ ,\nਜੀ ਚਾਹੁੰਦਾ ਸੋਹਣਿਆ ਸਾਰੀ ਉਮਰ ਤੈਨੂੰ ਕੋਲ ਬਿਠਾਕੇ ਤੱਕਦਾ ਰਵਾਂ ,\nਸਾਰਾ ਜਿਸਮ ਮੇਰੀ ਅੱਖ ਹੋ ਜਾਵੇ , ਮੁਹਤਾਜ ਨਾ ਮੈਂ ਇਸ ਅੱਖ ਦਾ ਰਵਾਂ ,\nਅੱਜ ਮੁੱਕ ਜਾਣ ਹਸਰਤਾਂ ਦੀਦ ਦੀਆਂ , ਤੂੰ ਘੁੰਘਟ ਹਟਾਕੇ ਬੈਠਾ ਰੱਖੇਂ ,\nਮੇਰੀ ਜਾਨ ਜਾਂਦੀ ਤੇ ਪਈ ਜਾਵੇ ਤੂੰ ਜ਼ੁਲਫ਼ ਸਜਾਕੇ ਬੈਠਾ ਰੱਖੇਂ ,\nਕਿੰਨਾ ਸੋਹਣਾ .....\n\nਦਿਲ ਵਿਚ ਤੇਰਾ ਪਿਆਰ ਵਸਾ ਕੇ , ਵੇਖੀ ਜਾਵਾਂ ਕੋਲ ਬਿਠਾਕੇ ,\nਤੈਨੂੰ ਦਿਲ ਵਾਲੇ ਸ਼ੀਸ਼ੇ ਚ ਜੜਾਇਆ ਦਿਲ ਕਰੇ ਵੇਖਦਾ ਰਵਾਂ ।\nਕਿੰਨਾ ਸੋਹਣਾ ....."},"hi":{"t":"किन्ना सोहणा तैनूं रब्ब ने बणाया","c":"किन्ना सोहणा तैनूं रब्ब ने बणाया दिल करे वेखदा रवां , \nदिल मुड़दा नी लख समझाया दिल करे वेखदा रवां । \nकिन्ना सोहणा .....\n\nप्यार तेरा ए जिंदगी मेरी करनी ए मैं पूजा तेरी , \nमेरी जिंदगी दा ऐहो सरमाया दिल करे वेखदा रवां । \nकिन्ना सोहणा .....\n\nमुख तेरा सोहणेया गुलाब नालों चंगा ए , \nनशा तेरी अख दा शराब नालों चंगा ए , \nजी चाहँदा सोहणेया सारी उमर तैनूं कोल बिठाके तकदा रवां , \nसारा जिस्म मेरी अख हो जावे , मोहताज ना मैं इस अख दा रवां , \nअज्ज मुक जाण हसरतां दीद दीयां , तूं घूँघट हटाके बैठा रखें , \nमेरी जान जांदी ते पई जावे तूं जुल्फ सजाके बैठा रखें , \nकिन्ना सोहणा .....\n\nदिल विच तेरा प्यार वसा के , वेखी जावां कोल बिठाके , \nतैनूं दिल वाले शीशे च जड़ाया दिल करे वेखदा रवां । \nकिन्ना सोहणा ....."},"en":{"t":"Kinna Sohna Tenu Rab Ne Banaya","c":"Kinna Sohna Tenu Rab Ne Banaya\nKinna Sohna Tennu Rab Ne Banaya"}}];
 
-        // --- PWA INSTALL LOGIC ---
-        let deferredPrompt;
-        const installBanner = document.getElementById('install-banner');
-        
-        window.addEventListener('beforeinstallprompt', (e) => {
-            e.preventDefault();
-            deferredPrompt = e;
-            if (!localStorage.getItem('pwaPromptDismissed')) {
-                installBanner.style.setProperty('display', 'flex', 'important');
-            }
-        });
-
-        document.getElementById('btn-install').addEventListener('click', async () => {
-            if (deferredPrompt) {
-                deferredPrompt.prompt();
-                await deferredPrompt.userChoice;
-                deferredPrompt = null;
-                installBanner.style.display = 'none';
-            }
-        });
-
-        document.getElementById('btn-close').addEventListener('click', () => {
-            installBanner.style.display = 'none';
-            localStorage.setItem('pwaPromptDismissed', 'true');
-        });
-
-        // --- LOCK SCREEN (MEDIA SESSION) LOGIC ---
-        function updateMediaSession(s) {
-            if ('mediaSession' in navigator) {
-                const lang = document.getElementById('lang-select').value;
-                const shabadTitle = s[lang]?.t || s.pb?.t || "Shabad";
-
-                navigator.mediaSession.metadata = new MediaMetadata({
-                    title: shabadTitle,
-                    artist: 'Bhajan Kirtan App',
-                    album: 'Gurbani Kirtan',
-                    artwork: [
-                        { src: 'logo.png', sizes: '512x512', type: 'image/png' }
-                    ]
-                });
-
-                navigator.mediaSession.setActionHandler('play', () => player.play());
-                navigator.mediaSession.setActionHandler('pause', () => player.pause());
-            }
-        }
-
-        // --- APP LOGIC ---
         let currentId = null;
         let fontSize = 1.3;
         const player = document.getElementById('main-player');
         const searchInput = document.getElementById('search-bar');
         const clearBtn = document.getElementById('clear-search');
+        const header = document.getElementById('app-header');
+        const searchContainer = document.getElementById('search-container');
 
-        player.onplay = () => renderIndex();
-        player.onpause = () => renderIndex();
+        // --- SCROLL HIDE/SHOW LOGIC ---
+        let lastST = 0;
+        window.addEventListener("scroll", () => {
+            let st = window.pageYOffset || document.documentElement.scrollTop;
+            if (document.body.classList.contains('index-active')) {
+                if (st > 100 && st > lastST) {
+                    header.style.transform = "translateY(-100%)";
+                    searchContainer.classList.add("search-hidden");
+                } else {
+                    header.style.transform = "translateY(0)";
+                    searchContainer.classList.remove("search-hidden");
+                }
+            }
+            lastST = st <= 0 ? 0 : st;
+        }, { passive: true });
+
+        // --- SEARCH CLEAR LOGIC ---
+        searchInput.oninput = function() {
+            clearBtn.style.display = this.value.length > 0 ? 'flex' : 'none';
+            renderIndex();
+        };
+        clearBtn.onclick = () => {
+            searchInput.value = '';
+            clearBtn.style.display = 'none';
+            renderIndex();
+            searchInput.focus();
+        };
+
+        // --- MEDIA SESSION (LOCK SCREEN) ---
+        function updateMediaSession(s) {
+            if ('mediaSession' in navigator) {
+                const lang = document.getElementById('lang-select').value;
+                navigator.mediaSession.metadata = new MediaMetadata({
+                    title: s[lang]?.t || s.pb?.t,
+                    artist: 'Bhajan Kirtan App',
+                    artwork: [{ src: 'logo.png', sizes: '512x512', type: 'image/png' }]
+                });
+            }
+        }
 
         function updateUI() {
             const lang = document.getElementById('lang-select').value;
-            const ui = { 
-                pb: { title: "ਭਜਨ ਕੀਰਤਨ ਐਪ", search: "ਖੋਜੋ...", total: "ਕੁੱਲ:" }, 
-                hi: { title: "भजन कीर्तन ऐप", search: "खोजें...", total: "Total:" } 
-            };
-            document.getElementById('app-title').innerText = ui[lang].title;
-            document.getElementById('search-bar').placeholder = ui[lang].search;
-            document.getElementById('shabad-counter').childNodes[0].textContent = ui[lang].total;
             renderIndex(); 
             if (currentId !== null) renderLyricsOnly(); 
         }
@@ -1484,11 +1419,10 @@
             if(!s) return;
             const wrap = document.getElementById('global-audio-wrap');
             if(currentId !== id && !player.src.includes(encodeURI(s.audio))) { player.src = s.audio || ""; }
-            wrap.style.display = (s.audio && s.audio.trim() !== "") ? 'block' : 'none';
+            wrap.style.display = s.audio ? 'block' : 'none';
             currentId = id;
             history.pushState({view: 'shabad'}, ''); 
-            
-            updateMediaSession(s); // Update Lock Screen
+            updateMediaSession(s);
             renderLyricsOnly();
             switchView(false);
         }
@@ -1497,10 +1431,8 @@
             const lang = document.getElementById('lang-select').value;
             const s = shabads.find(x => x.id == currentId);
             if(!s) return;
-            const title = s[lang]?.t || s.pb?.t || "Title";
-            const content = s[lang]?.c || s.pb?.c || "";
-            document.getElementById('shabad-title-box').innerHTML = `<h2 class="shabad-title">${title}</h2>`;
-            document.getElementById('active-container').innerHTML = `<hr><div style="font-size:${fontSize}rem">${content}</div>`;
+            document.getElementById('shabad-title-box').innerHTML = `<h2 class="shabad-title">${s[lang]?.t || s.pb?.t}</h2>`;
+            document.getElementById('active-container').innerHTML = `<hr><div style="font-size:${fontSize}rem">${s[lang]?.c || s.pb?.c}</div>`;
             window.scrollTo(0,0);
         }
 
@@ -1515,24 +1447,17 @@
                 const item = document.createElement('div');
                 item.className = 'index-item';
                 item.onclick = () => openShabad(s.id);
+                const isPlaying = !player.paused && player.src.includes(encodeURI(s.audio));
                 item.innerHTML = `<div class="shabad-link-text">${idx + 1}. ${s[lang]?.t || s.pb?.t}</div>`;
-                if(s.audio) {
-                    const isPlaying = !player.paused && player.src.includes(encodeURI(s.audio));
-                    item.innerHTML += `<button class="play-index-btn" onclick="event.stopPropagation(); toggleAudio('${s.id}')">${isPlaying ? '⏸' : '▶'}</button>`;
-                }
+                if(s.audio) item.innerHTML += `<button class="play-index-btn" onclick="event.stopPropagation(); toggleAudio('${s.id}')">${isPlaying ? '⏸' : '▶'}</button>`;
                 container.appendChild(item);
             });
         }
 
         function toggleAudio(id) {
             const s = shabads.find(x => x.id == id);
-            if (player.src.includes(encodeURI(s.audio)) && !player.paused) {
-                player.pause();
-            } else {
-                player.src = s.audio;
-                updateMediaSession(s); // Update Lock Screen
-                player.play();
-            }
+            if (player.src.includes(encodeURI(s.audio)) && !player.paused) player.pause();
+            else { player.src = s.audio; updateMediaSession(s); player.play(); }
             renderIndex();
         }
 
@@ -1540,14 +1465,23 @@
             document.getElementById('index-view').style.display = isIndex ? 'block' : 'none';
             document.getElementById('shabad-view').style.display = isIndex ? 'none' : 'block';
             document.getElementById('back-btn').style.display = isIndex ? 'none' : 'block';
-            if(isIndex) {
-                document.body.classList.add('index-active');
-                document.getElementById('global-audio-wrap').style.display = 'none';
-                currentId = null;
-            } else {
-                document.body.classList.remove('index-active');
-            }
+            if(isIndex) { document.body.classList.add('index-active'); header.style.transform = "translateY(0)"; }
+            else document.body.classList.remove('index-active');
         }
+
+        // --- PWA INSTALL PROMPT ---
+        let defPrompt;
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault(); defPrompt = e;
+            if (!localStorage.getItem('pwaDismissed')) document.getElementById('install-banner').style.display = 'flex';
+        });
+        document.getElementById('btn-install').onclick = async () => {
+            if (defPrompt) { defPrompt.prompt(); defPrompt = null; document.getElementById('install-banner').style.display = 'none'; }
+        };
+        document.getElementById('btn-close').onclick = () => {
+            document.getElementById('install-banner').style.display = 'none';
+            localStorage.setItem('pwaDismissed', 'true');
+        };
 
         window.onpopstate = () => switchView(true);
         document.getElementById('back-btn').onclick = () => history.back();
@@ -1555,11 +1489,8 @@
         document.getElementById('font-increase').onclick = () => { fontSize += 0.1; renderLyricsOnly(); };
         document.getElementById('font-decrease').onclick = () => { if(fontSize > 0.9) fontSize -= 0.1; renderLyricsOnly(); };
         document.getElementById('lang-select').onchange = updateUI;
-        searchInput.oninput = () => { clearBtn.style.display = searchInput.value ? 'flex' : 'none'; renderIndex(); };
         
-        if ('serviceWorker' in navigator) {
-            window.addEventListener('load', () => { navigator.serviceWorker.register('sw.js'); });
-        }
+        if ('serviceWorker' in navigator) { window.addEventListener('load', () => { navigator.serviceWorker.register('sw.js'); }); }
         updateUI();
     </script>
 </body>
